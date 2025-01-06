@@ -1,0 +1,26 @@
+/* Badges Animetion File */
+
+/* Fade */
+
+@keyframes flickerAnimation { /* flame pulses */
+    0%   { opacity:1; }
+    50%  { opacity:0.5; }
+    100% { opacity:1; }
+}
+
+.fade {
+    opacity:1;  
+    animation: flickerAnimation 1s infinite;
+}
+
+/* Pop Up */
+
+.pop-up { 
+    animation: popout 1s ease infinite;
+}
+
+@keyframes popout {
+    from {transform:scale(1)}
+    50%  {transform:scale(1.1)}
+    to   {transform:scale(1)}
+}
