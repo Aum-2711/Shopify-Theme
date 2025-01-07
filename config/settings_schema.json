@@ -1222,53 +1222,23 @@
     "settings": [
       {
         "type": "header",
-        "content": "Display Options"
-      },
-      {
-        "type": "select",
-        "id": "badge_display_order",
-        "label": "Badge Display Order",
-        "options": [
-          {
-            "value": "normal",
-            "label": "Normal"
-          },
-          {
-            "value": "reverse",
-            "label": "Reverse"
-          }
-        ],
-        "default": "normal"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_layout",
-        "label": "Badge Display Layout",
-        "options": [
-          {
-            "value": "inline-block",
-            "label": "In line"
-          },
-          {
-            "value": "block",
-            "label": "Stacked"
-          }
-        ],
-        "default": "block"
-      },
-      {
-        "type": "range",
-        "id": "custom_badge_spacing",
-        "min": 0,
-        "max": 10,
-        "step": 1,
-        "default": 3,
-        "unit": "px",
-        "label": "Spacing between badges"
-      },
-      {
-        "type": "header",
         "content": "Sale Badge"
+      },
+      {
+        "type": "select",
+        "id": "sale_badge_show",
+        "label": "Enable Show Badge",
+        "options": [
+          {
+            "value": "enable",
+            "label": "Enable"
+          },
+          {
+            "value": "disable",
+            "label": "Disable"
+          }
+        ],
+        "default": "enable"
       },
       {
         "type": "select",
@@ -1291,8 +1261,12 @@
             "label": "t:settings_schema.badges.settings.position.options__4.label"
           },
           {
-            "value": "before_name",
-            "label": "Before Product Name"
+            "value": "product info top",
+            "label": "Product Info Top"
+          },
+          {
+            "value": "after price",
+            "label": "After Price"
           }
         ],
         "default": "bottom left",
@@ -1309,14 +1283,20 @@
           {
             "value": "percentage",
             "label": "Percentage"
-          },
-          {
-            "value": "dynamic",
-            "label": "Dynamic"
           }
         ],
         "default": "sale",
         "label": "Badge Type"
+      },
+      {
+        "type": "range",
+        "id": "percentage_start",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "%",
+        "label": "Percentage Start From",
+        "default": 10
       },
       {
         "type": "range",
@@ -1410,23 +1390,15 @@
         "id": "new_badge_enable",
         "options": [
           {
-            "value": "none",
-            "label": "None"
+            "value": "enable",
+            "label": "Enable"
           },
           {
-            "value": "product_cards",
-            "label": "Product Cards Only (ex: collection page)"
-          },
-          {
-            "value": "product_page",
-            "label": "Product Page Only"
-          },
-          {
-            "value": "both",
-            "label": "Both Product Cards and Product Page"
+            "value": "disable",
+            "label": "Disable"
           }
         ],
-        "default": "none",
+        "default": "enable",
         "label": "Enable New Badge"
       },
       {
@@ -1470,8 +1442,12 @@
             "label": "t:settings_schema.badges.settings.position.options__4.label"
           },
           {
-            "value": "before_name",
-            "label": "Before Product Name"
+            "value": "product info top",
+            "label": "Product Info Top"
+          },
+          {
+            "value": "after price",
+            "label": "After Price"
           }
         ],
         "default": "bottom left",
@@ -1525,220 +1501,6 @@
         ],
         "default": "non"
       },
-    ]
-  },
-  {
-    "name": "Custom Badges",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Custom Badge 1"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_3_enable",
-        "options": [
-          {
-            "value": "none",
-            "label": "None"
-          },
-          {
-            "value": "product_cards",
-            "label": "Product Cards Only (ex: collection page)"
-          },
-          {
-            "value": "product_page",
-            "label": "Product Page Only"
-          },
-          {
-            "value": "both",
-            "label": "Both Product Cards and Product Page"
-          }
-        ],
-        "default": "none",
-        "label": "Enable Custom Badge 1"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_3_option",
-        "options": [
-          {
-            "value": "text",
-            "label": "Text Badge"
-          },
-          {
-            "value": "image",
-            "label": "Image Badge"
-          },
-          {
-            "value": "dynamic_image",
-            "label": "Dynamic Image Badge"
-          }
-        ],
-        "default": "text",
-        "label": "Custom Badge 1 Type"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_3_position",
-        "options": [
-          {
-            "value": "bottom left",
-            "label": "t:settings_schema.badges.settings.position.options__1.label"
-          },
-          {
-            "value": "bottom right",
-            "label": "t:settings_schema.badges.settings.position.options__2.label"
-          },
-          {
-            "value": "top left",
-            "label": "t:settings_schema.badges.settings.position.options__3.label"
-          },
-          {
-            "value": "top right",
-            "label": "t:settings_schema.badges.settings.position.options__4.label"
-          },
-          {
-            "value": "before_name",
-            "label": "Before Product Name"
-          }
-        ],
-        "default": "bottom left",
-        "label": "Custom Badge 1 Position on Cards"
-      },
-      {
-        "type": "text",
-        "id": "custom_badge_3_text",
-        "label": "Custom Badge 1 Text",
-        "default": "Custom"
-      },
-      {
-        "type": "color_scheme",
-        "id": "custom_badge_3_color_scheme",
-        "label": "t:settings_schema.badges.settings.sold_out_badge_color_scheme.label",
-        "default": "scheme-5"
-      },
-      {
-        "type": "image_picker",
-        "id": "custom_badge_3_image",
-        "label": "Custom Badge 1 Image",
-        "info": "Use .png for transparency"
-      },
-      {
-        "type": "range",
-        "id": "custom_badge_3_image_width",
-        "min": 10,
-        "max": 100,
-        "step": 5,
-        "default": 50,
-        "unit": "px",
-        "label": "Custom Badge 1 Image Width"
-      },
-      {
-        "type": "header",
-        "content": "Custom Badge 2"
-      },
-
-      {
-        "type": "select",
-        "id": "custom_badge_2_enable",
-        "options": [
-          {
-            "value": "none",
-            "label": "None"
-          },
-          {
-            "value": "product_cards",
-            "label": "Product Cards Only (ex: collection page)"
-          },
-          {
-            "value": "product_page",
-            "label": "Product Page Only"
-          },
-          {
-            "value": "both",
-            "label": "Both Product Cards and Product Page"
-          }
-        ],
-        "default": "none",
-        "label": "Enable Custom Badge 2"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_2_option",
-        "options": [
-          {
-            "value": "text",
-            "label": "Text Badge"
-          },
-          {
-            "value": "image",
-            "label": "Image Badge"
-          },
-          {
-            "value": "dynamic_image",
-            "label": "Dynamic Image Badge"
-          }
-        ],
-        "default": "text",
-        "label": "Custom Badge 2 Type"
-      },
-      {
-        "type": "select",
-        "id": "custom_badge_2_position",
-        "options": [
-          {
-            "value": "bottom left",
-            "label": "t:settings_schema.badges.settings.position.options__1.label"
-          },
-          {
-            "value": "bottom right",
-            "label": "t:settings_schema.badges.settings.position.options__2.label"
-          },
-          {
-            "value": "top left",
-            "label": "t:settings_schema.badges.settings.position.options__3.label"
-          },
-          {
-            "value": "top right",
-            "label": "t:settings_schema.badges.settings.position.options__4.label"
-          },
-          {
-            "value": "before_name",
-            "label": "Before Product Name"
-          }
-        ],
-        "default": "bottom left",
-        "label": "Custom Badge 2 Position on Cards"
-      },
-      {
-        "type": "text",
-        "id": "custom_badge_2_text",
-        "label": "Custom Badge 2 Text",
-        "default": "Custom"
-      },
-      {
-        "type": "color_scheme",
-        "id": "custom_badge_2_color_scheme",
-        "label": "t:settings_schema.badges.settings.sold_out_badge_color_scheme.label",
-        "default": "scheme-5"
-      },
-      {
-        "type": "image_picker",
-        "id": "custom_badge_2_image",
-        "label": "Custom Badge 2 Image",
-        "info": "Use .png for transparency"
-      },
-      {
-        "type": "range",
-        "id": "custom_badge_2_image_width",
-        "min": 10,
-        "max": 100,
-        "step": 5,
-        "default": 50,
-        "unit": "px",
-        "label": "Custom Badge 2 Image Width"
-      }
     ]
   },
   {

@@ -124,254 +124,14 @@
               </a>
             </h3>
           </div>
-          {% comment %}
-          <div class="card__badge {{ settings.badge_position }}">
-            {%- if card_product.available == false -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-              >
-                {{- 'products.product.sold_out' | t -}}
-              </span>
-            {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
-              <span
-                id="NoMediaStandardBadge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
-              >
-                {{- 'products.product.on_sale' | t -}}
-              </span>
-            {%- endif -%}
-          </div>
-          {% endcomment %}
           {%- assign positions = 'bottom left,bottom right,top left,top right' | split: ',' -%}
-          {%- for position in positions -%}
-            <div class="card__badge {{ position }}" style="display: block;">
-              {%- if settings.badge_display_order == 'normal' -%}
-                {%- if settings.badge_position == position -%}
-                  {%- render 'custom-badge-product-card', 
-                    badge_type: "standard",
-                    product: card_product,
-                    section_id: section_id
-                  -%}
-                {%- endif -%}
-                {%- if card_product.metafields.custom.new_badge == true and settings.new_badge_position == position -%}
-                  {%- if settings.new_badge_enable == "product_cards" or settings.new_badge_enable == "both" -%}
-                    
-                    {% assign current_date = 'now' | date: '%s' %}
-                    {% assign product_date = card_product.published_at | date: '%s' %}
-                    {% assign days_since_publish = current_date | minus: product_date | divided_by: 86400 %}
-
-                    {% if days_since_publish <= 7 %}
-                      {%- render 'custom-badge-product-card', 
-                        badge_type: "custom",
-                        product: card_product,
-                        section_id: section_id,
-                        custom_badge_option: settings.new_badge_option, 
-                        custom_badge_color_scheme: settings.new_badge_color_scheme, 
-                        custom_badge_text: settings.new_badge_text, 
-                        custom_badge_image: settings.new_badge_image, 
-                        custom_badge_image_width: settings.new_badge_image_width, 
-                        custom_animetion: settings.new_animations
-                      -%}
-                    {% endif %}
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if card_product.metafields.custom.custom_badge_2 == true and settings.custom_badge_2_position == position -%}
-                  {%- if settings.custom_badge_2_enable == "product_cards" or settings.custom_badge_2_enable == "both" -%}
-                    {%- render 'custom-badge-product-card', 
-                      badge_type: "custom",
-                      product: card_product,
-                      section_id: section_id,
-                      custom_badge_option: settings.custom_badge_2_option, 
-                      custom_badge_color_scheme: settings.custom_badge_2_color_scheme, 
-                      custom_badge_text: settings.custom_badge_2_text, 
-                      custom_badge_image: settings.custom_badge_2_image, 
-                      custom_badge_image_width: settings.custom_badge_2_image_width 
-                    -%}
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if card_product.metafields.custom.custom_badge_3 == true and settings.custom_badge_3_position == position -%}
-                  {%- if settings.custom_badge_3_enable == "product_cards" or settings.custom_badge_3_enable == "both" -%}
-                    {%- render 'custom-badge-product-card', 
-                      badge_type: "custom",
-                      product: card_product,
-                      section_id: section_id,
-                      custom_badge_option: settings.custom_badge_3_option, 
-                      custom_badge_color_scheme: settings.custom_badge_3_color_scheme, 
-                      custom_badge_text: settings.custom_badge_3_text, 
-                      custom_badge_image: settings.custom_badge_3_image, 
-                      custom_badge_image_width: settings.custom_badge_3_image_width 
-                    -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- else -%}
-                {%- if card_product.metafields.custom.custom_badge_3 == true and settings.custom_badge_3_position == position -%}
-                  {%- if settings.custom_badge_3_enable == "product_cards" or settings.custom_badge_3_enable == "both" -%}
-                    {%- render 'custom-badge-product-card', 
-                      badge_type: "custom",
-                      product: card_product,
-                      section_id: section_id,
-                      custom_badge_option: settings.custom_badge_3_option, 
-                      custom_badge_color_scheme: settings.custom_badge_3_color_scheme, 
-                      custom_badge_text: settings.custom_badge_3_text, 
-                      custom_badge_image: settings.custom_badge_3_image, 
-                      custom_badge_image_width: settings.custom_badge_3_image_width 
-                    -%}
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if card_product.metafields.custom.custom_badge_2 == true and settings.custom_badge_2_position == position -%}
-                  {%- if settings.custom_badge_2_enable == "product_cards" or settings.custom_badge_2_enable == "both" -%}
-                    {%- render 'custom-badge-product-card', 
-                      badge_type: "custom",
-                      product: card_product,
-                      section_id: section_id,
-                      custom_badge_option: settings.custom_badge_2_option, 
-                      custom_badge_color_scheme: settings.custom_badge_2_color_scheme, 
-                      custom_badge_text: settings.custom_badge_2_text, 
-                      custom_badge_image: settings.custom_badge_2_image, 
-                      custom_badge_image_width: settings.custom_badge_2_image_width 
-                    -%}
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if card_product.metafields.custom.new_badge == true and settings.new_badge_position == position -%}
-                  {%- if settings.new_badge_enable == "product_cards" or settings.new_badge_enable == "both" -%}
-                    {%- render 'custom-badge-product-card', 
-                      badge_type: "custom",
-                      product: card_product,
-                      section_id: section_id,
-                      custom_badge_option: settings.new_badge_option, 
-                      custom_badge_color_scheme: settings.new_badge_color_scheme, 
-                      custom_badge_text: settings.new_badge_text, 
-                      custom_badge_image: settings.new_badge_image, 
-                      custom_badge_image_width: settings.new_badge_image_width 
-                    -%}
-                  {%- endif -%}
-                {%- endif -%}
-                {%- if settings.badge_position == position -%}
-                  {%- render 'custom-badge-product-card', 
-                    badge_type: "standard",
-                    product: card_product,
-                    section_id: section_id
-                  -%}
-                {%- endif -%} 
-              {%- endif -%}
-            </div>
-          {%- endfor -%}
+          {% render 'badges', product: card_product, positions: positions %}
         </div>
       </div>
       <div class="card__content">
         <div class="card__information">
-          <div class="badge-wrapper">
-          {%- if settings.badge_display_order == 'normal' -%}
-            {%- if settings.badge_position == "before_name" -%}
-              {%- render 'custom-badge-product-card', 
-                badge_type: "standard",
-                product: card_product,
-                section_id: section_id
-              -%}
-            {%- endif -%}
-            {%- if card_product.metafields.custom.new_badge == true and settings.new_badge_position == "before_name" -%}
-              {%- if settings.new_badge_enable == "product_cards" or settings.new_badge_enable == "both" -%}
-                
-                {% assign current_date = 'now' | date: '%s' %}
-                {% assign product_date = card_product.published_at | date: '%s' %}
-                {% assign days_since_publish = current_date | minus: product_date | divided_by: 86400 %}
-
-                {% if days_since_publish <= 7 %}
-                  {%- render 'custom-badge-product-card', 
-                    badge_type: "custom",
-                    product: card_product,
-                    section_id: section_id,
-                    custom_badge_option: settings.new_badge_option, 
-                    custom_badge_color_scheme: settings.new_badge_color_scheme, 
-                    custom_badge_text: settings.new_badge_text, 
-                    custom_badge_image: settings.new_badge_image, 
-                    custom_badge_image_width: settings.new_badge_image_width, 
-                    custom_animetion: settings.new_animations
-                  -%}
-                {% endif %}
-              {%- endif -%}
-            {%- endif -%}
-            {%- if card_product.metafields.custom.custom_badge_2 == true and settings.custom_badge_2_position == "before_name" -%}
-              {%- if settings.custom_badge_2_enable == "product_cards" or settings.custom_badge_2_enable == "both" -%}
-                {%- render 'custom-badge-product-card', 
-                  badge_type: "custom",
-                  product: card_product,
-                  section_id: section_id,
-                  custom_badge_option: settings.custom_badge_2_option, 
-                  custom_badge_color_scheme: settings.custom_badge_2_color_scheme, 
-                  custom_badge_text: settings.custom_badge_2_text, 
-                  custom_badge_image: settings.custom_badge_2_image, 
-                  custom_badge_image_width: settings.custom_badge_2_image_width 
-                -%}
-              {%- endif -%}
-            {%- endif -%}
-            {%- if card_product.metafields.custom.custom_badge_3 == true and settings.custom_badge_3_position == "before_name" -%}
-              {%- if settings.custom_badge_3_enable == "product_cards" or settings.custom_badge_3_enable == "both" -%}
-                {%- render 'custom-badge-product-card', 
-                  badge_type: "custom",
-                  product: card_product,
-                  section_id: section_id,
-                  custom_badge_option: settings.custom_badge_3_option, 
-                  custom_badge_color_scheme: settings.custom_badge_3_color_scheme, 
-                  custom_badge_text: settings.custom_badge_3_text, 
-                  custom_badge_image: settings.custom_badge_3_image, 
-                  custom_badge_image_width: settings.custom_badge_3_image_width 
-                -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- else -%}
-            {%- if card_product.metafields.custom.custom_badge_3 == true and settings.custom_badge_3_position == "before_name" -%}
-              {%- if settings.custom_badge_3_enable == "product_cards" or settings.custom_badge_3_enable == "both" -%}
-                {%- render 'custom-badge-product-card', 
-                  badge_type: "custom",
-                  product: card_product,
-                  section_id: section_id,
-                  custom_badge_option: settings.custom_badge_3_option, 
-                  custom_badge_color_scheme: settings.custom_badge_3_color_scheme, 
-                  custom_badge_text: settings.custom_badge_3_text, 
-                  custom_badge_image: settings.custom_badge_3_image, 
-                  custom_badge_image_width: settings.custom_badge_3_image_width 
-                -%}
-              {%- endif -%}
-            {%- endif -%}
-            {%- if card_product.metafields.custom.custom_badge_2 == true and settings.custom_badge_2_position == "before_name" -%}
-              {%- if settings.custom_badge_2_enable == "product_cards" or settings.custom_badge_2_enable == "both" -%}
-                {%- render 'custom-badge-product-card', 
-                  badge_type: "custom",
-                  product: card_product,
-                  section_id: section_id,
-                  custom_badge_option: settings.custom_badge_2_option, 
-                  custom_badge_color_scheme: settings.custom_badge_2_color_scheme, 
-                  custom_badge_text: settings.custom_badge_2_text, 
-                  custom_badge_image: settings.custom_badge_2_image, 
-                  custom_badge_image_width: settings.custom_badge_2_image_width 
-                -%}
-              {%- endif -%}
-            {%- endif -%}
-            {%- if card_product.metafields.custom.new_badge == true and settings.new_badge_position == "before_name" -%}
-              {%- if settings.new_badge_enable == "product_cards" or settings.new_badge_enable == "both" -%}
-                {%- render 'custom-badge-product-card', 
-                  badge_type: "custom",
-                  product: card_product,
-                  section_id: section_id,
-                  custom_badge_option: settings.new_badge_option, 
-                  custom_badge_color_scheme: settings.new_badge_color_scheme, 
-                  custom_badge_text: settings.new_badge_text, 
-                  custom_badge_image: settings.new_badge_image, 
-                  custom_badge_image_width: settings.new_badge_image_width 
-                -%}
-              {%- endif -%}
-            {%- endif -%}
-            {%- if settings.badge_position == "before_name" -%}
-              {%- render 'custom-badge-product-card', 
-                badge_type: "standard",
-                product: card_product,
-                section_id: section_id
-              -%}
-            {%- endif -%} 
-          {%- endif -%}            
-          </div>
+          {%- assign positions = 'product info top' | split: ',' -%}
+          {% render 'badges', product: card_product, positions: positions %}
           <h3
             class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
             {% if card_product.featured_media or settings.card_style == 'card' %}
@@ -777,15 +537,12 @@
         {% endif %}
         <div class="card__badge {{ settings.badge_position }}">
           {%- if card_product.available == false -%}
-            {% if settings.sold_out_badge_show == "enable" %}
-              <span
-                id="Badge-{{ section_id }}-{{ card_product.id }}"
-                class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
-              >
-              {{ settings.sold_out_badge_show }}
-                {{- 'products.product.sold_out' | t -}}
-              </span>
-            {% endif %}
+            <span
+              id="Badge-{{ section_id }}-{{ card_product.id }}"
+              class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
+            >
+              {{- 'products.product.sold_out' | t -}}
+            </span>
           {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
             <span
               id="Badge-{{ section_id }}-{{ card_product.id }}"
