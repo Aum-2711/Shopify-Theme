@@ -122,8 +122,15 @@
           </span>
         </span>
       </small>
+
       {%- assign positions = 'after price' | split: ',' -%}
-      {% render 'badges', product: product, positions: positions %}
-    </div>
+      {% if product_card %}
+        {% render 'badges', product: product, positions: positions, product_card: true %}
+      {% endif %}
+      {% if product_page %}
+        {% render 'badges', product: product, positions: positions, product_page: true %}
+      {% endif %}
+
+      </div>
   </div>
 {% endunless %}

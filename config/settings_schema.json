@@ -1412,14 +1412,20 @@
           {
             "value": "image",
             "label": "Image Badge"
-          },
-          {
-            "value": "dynamic_image",
-            "label": "Dynamic Image Badge"
           }
         ],
         "default": "text",
         "label": "New Badge Type"
+      },
+      {
+        "type": "range",
+        "id": "new_badge_end",
+        "min": 1,
+        "max": 100,
+        "step": 1,
+        "unit": "Day",
+        "label": "Stop Showing From",
+        "default": 7
       },
       {
         "type": "select",
