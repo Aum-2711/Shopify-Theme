@@ -19,7 +19,9 @@ class CartItems extends HTMLElement {
       document.getElementById('shopping-cart-line-item-status') || document.getElementById('CartDrawer-LineItemStatus');
 
     const debouncedOnChange = debounce((event) => {
-      this.onChange(event);
+      if (!event.target.closest('.cart-upsell-product-container') && !event.target.closest('product-info-cart-upsell')) {
+        this.onChange(event);
+      }
     }, ON_CHANGE_DEBOUNCE_TIMER);
 
     this.addEventListener('change', debouncedOnChange.bind(this));
@@ -44,18 +46,33 @@ class CartItems extends HTMLElement {
 
   resetQuantityInput(id) {
     const input = this.querySelector(`#Quantity-${id}`);
-    input.value = input.getAttribute('value');
-    this.isEnterPressed = false;
+    if (input && !input.closest('.cart-upsell-product-container') && !input.closest('product-info-cart-upsell')) {
+      const value = input.getAttribute('value');
+      if (value !== null) {
+        input.value = value;
+      }
+      this.isEnterPressed = false;
+    }
   }
 
+
   setValidity(event, index, message) {
-    event.target.setCustomValidity(message);
-    event.target.reportValidity();
+    if (event.target.setCustomValidity) {
+      event.target.setCustomValidity(message);
+      event.target.reportValidity();
+    }
     this.resetQuantityInput(index);
-    event.target.select();
+    if (event.target.select && typeof event.target.select === 'function') {
+      event.target.select();
+    }
   }
 
   validateQuantity(event) {
+
+    if (event.target.closest('.cart-upsell-product-container') || event.target.closest('product-info-cart-upsell')) {
+      return;
+    }
+
     const inputValue = parseInt(event.target.value);
     const index = event.target.dataset.index;
     let message = '';

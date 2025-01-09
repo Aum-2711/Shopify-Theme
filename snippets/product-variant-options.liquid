@@ -18,6 +18,17 @@
 {% endcomment %}
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
+
+  assign is_upsell = is_upsell | default: false
+  if is_upsell
+    assign product_form_id = product_form_id | append: '-' | append: product.id
+  endif
+  if block != null
+    assign swatch_shape = block.settings.swatch_shape
+  else
+    assign swatch_shape = settings.cart_drawer_recommendation_swatch_shape
+  endif
+
 -%}
 
 {%- for value in option.values -%}
@@ -40,11 +51,11 @@
   -%}
 
   {%- capture input_id -%}
-    {{ section.id }}-{{ option.position }}-{{ forloop.index0 -}}
+    {{ section.id }}{% if is_upsell %}-{{ product.id }}{% endif %}-{{ option.position }}-{{ forloop.index0 }}
   {%- endcapture -%}
 
   {%- capture input_name -%}
-    {{ option.name }}-{{ option.position }}
+    {{ option.name }}-{{ option.position }}{% if is_upsell %}-{{ product.id }}{% endif %}
   {%- endcapture -%}
 
   {%- capture input_dataset -%}
@@ -72,7 +83,7 @@
       product_form_id: product_form_id,
       checked: value.selected,
       visually_disabled: option_disabled,
-      shape: block.settings.swatch_shape,
+      shape: swatch_shape,
       help_text: help_text,
       additional_props: input_dataset
     %}
