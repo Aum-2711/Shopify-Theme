@@ -36,6 +36,12 @@
                 >
                   {%- for childlink in link.links -%}
                     <li>
+                      {% assign collection_handle = childlink.title | handleize %}
+                      {% assign current_collection = collections[collection_handle] %}
+                      {% if current_collection and current_collection.metafields.custom.collection_icon %}
+                        <img src="{{ current_collection.metafields.custom.collection_icon | image_url }}" alt="{{ current_collection.title }}" class="menu-icon" height="25px" width="25px" class="megamenu-icon-desktop">
+                      {% endif %}
+                      
                       <a
                         id="HeaderMenu-{{ link.handle }}-{{ childlink.handle }}"
                         href="{{ childlink.url }}"

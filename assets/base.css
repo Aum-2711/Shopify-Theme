@@ -647,6 +647,11 @@ h3 .icon-arrow,
   width: 100%;
 }
 
+.svg-wrapper > svg.new-icon {
+  height: 33px;
+  width: 33px;
+}
+
 /* base-details-summary */
 summary {
   cursor: pointer;
@@ -2521,6 +2526,11 @@ input[type='checkbox'] {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.header__icon:has(.visually-visible) {
+  flex-direction: column;
+  margin: 0 0 0 10px;
 }
 
 .header__icon {
