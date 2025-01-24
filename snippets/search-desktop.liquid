@@ -1,6 +1,6 @@
 <style>
   :root {
-    --inputs-radius: 20px !important;
+    --inputs-radius: 0 !important;
   }
 
   .mobile-search {
@@ -9,30 +9,148 @@
 
   .desktop-search {
     display: block;
+    width: 100%;
   }
 
-  @media only screen and (min-width: 769px) {
+  .ppp {
+    padding: 5px !important;
+  }
+
+  .search__input.field__input:hover .search__input.field__input:focus .search__input.field__input,
+  .desktop-search .field::after,
+  .desktop-search .field::before {
+    border: 1px solid #f8b912 !important;
+    outline: 1px solid #f8b912 !important;
+    box-shadow: none;
+    outline: 0;
+    border: 0;
+  }
+
+  .search-modal__form > .search.search-modal__form {
+    margin: 0 auto;
+  }
+
+  a.header__icon {
+    min-width: 64px;
+    min-height: 50px;
+    height: auto;
+    text-decoration: none;
+    border-bottom: 3px solid #fff;
+    transition: all 0.2s;
+  }
+
+  .header__menu-item span,
+  .header__menu-item:hover > span,
+  .header__active-menu-item {
+    text-decoration: none;
+  }
+
+  a.header__icon:hover,
+  .header__menu-item:hover {
+    transform: translateY(-3px);
+    border-bottom: 3px solid #f8b912;
+    text-decoration: none;
+  }
+
+  .desktop-search .search__input.field__input {
+    padding: 15px 15px 15px 48px;    
+  }
+  
+  .desktop-search .field__label {
+    left: 48px;
+  }
+
+  .desktop-search .search__button.field__button {
+    right: unset;
+    color: #000;
+    left: 0;
+  }
+
+  .search__button.field__button .icon {
+    height: 25px;
+    width: 25px;
+  }
+
+@media screen and (min-width: 990px) {
     predictive-search[open] .predictive-search {
       position: absolute;
       min-width: 768px;
       left: -768px;
       transform: translateX(50%);
     }
-  }
 
-  @media only screen and (max-width: 768px) {
-    .mobile-search {
-      display: block;
+    .header__menu-item {
+      margin: 0 8px;
+      padding: 1px 6px;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 700;
+      height: 40px;
+      border-bottom: 3px solid #fff;
+      transition: all 0.2s;
+      text-decoration: none;
     }
 
-    .desktop-search {
+    .mega-menu__list > li {
+      padding: 0 0 0 40px;
+      position: relative;
+      text-align: start;
+    }
+
+    .mega-menu__list > li img.menu-icon {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .header__menu-item .icon.icon-caret {
       display: none;
     }
-  } 
+
+    summary.list-menu__item {
+      padding: 1px 6px;
+    }
+
+    .mega-menu__content {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 30px 10px;
+      border: 1px solid #d5d5d5;
+      text-align: end;
+    }
+
+    .mega-menu__content > a.header__menu-item {
+      display: inline;
+      margin: 20px 0 0 auto;
+    }
+
+    .header--top-center .desktop-search {
+      max-width: 70%;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    .desktop-search {
+      display: block !important;
+      margin-bottom: 10px;
+    }
+
+    .menu-collection-icon {
+      display: block;
+      margin: 0 10px 0 0;
+    }
+
+    .menu-drawer__navigation .header-usp__text {
+      font-size: 16px;
+      color: black;
+      display: block;
+      padding: 11px 30px;
+      margin-top: 3px;
+      background: rgb(243, 243, 243);
+    }
+  }
 </style>
-<div class="mobile-search">
-  {% render 'header-search', input_id: 'Search-In-Modal' %}
-</div>
+
 <div class="desktop-search">
   {%- if settings.predictive_search_enabled -%}
     <predictive-search class="search-modal__form" data-loading-text="{{ 'accessibility.loading' | t }}">
@@ -73,9 +191,7 @@
         </svg>
       </button>
       <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-        <svg class="icon icon-search" aria-hidden="true" focusable="false">
-          <use href="#icon-search">
-        </svg>
+        {{ 'icon-search.svg' | inline_asset_content }}
       </button>
     </div>
   </form>

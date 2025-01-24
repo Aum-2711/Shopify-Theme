@@ -1,32 +1,6 @@
-<!-- sections/header-usp.liquid -->
-<section class="header-usp color-{{ section.settings.container_color_scheme }} {% if section.settings.mobile_add_to_menu %}mobile-add-to-menu{% endif %}">
-  <div class="header-usp__container page-width">
-    <div class="header-usp__content header-usp__align-{{ section.settings.alignment }}">
-      {% for block in section.blocks %}
-        <div class="header-usp__block">
-          <div class="header-usp__text">
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}" class="header-usp__link" target="{{ block.settings.link_target }}">
-            {% endif %}
-            {% if block.settings.icon != 'none' %}
-              <span class="header-usp__icon">
-                {% render 'icon-accordion', icon: block.settings.icon %}
-              </span>
-            {% endif %}
-            {{ block.settings.usp_text }}
-            {% if block.settings.link != blank %}
-              </a>
-            {% endif %}
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
 <style>
   .header-usp {
-    padding: 8px;
+    padding: 8px 0;
     text-align: center;
   }
 
@@ -62,23 +36,28 @@
   }
 
   .header-usp__text {
-    font-size: 16px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     gap: 6px;
   }
 
+  .header-usp__text a:hover{
+    text-decoration: underline;
+  }
+
   .header-usp__text p {
+    line-height: 18px;
     margin: 0;
   }
 
   .header-usp__icon,
   .header-usp__icon .svg-wrapper,
   .header-usp__icon svg {
-    width: 24px;
-    height: 24px;
-    font-size: 24px;
-    line-height: 24px;
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+    line-height: 18px;
     fill: currentColor; /* Dynamically inherits text color */
   }
 
@@ -95,6 +74,71 @@
     color: var(--color-accent); /* Highlight on hover */
   }
 </style>
+
+<!-- sections/header-usp.liquid -->
+<section class="header-usp color-{{ section.settings.container_color_scheme }} {% if section.settings.mobile_add_to_menu %}mobile-add-to-menu{% endif %}">
+  <div class="header-usp__container page-width">
+    <div class="header-usp__content header-usp__align-{{ section.settings.alignment }}">
+      {% for block in section.blocks %}
+        <div class="header-usp__block">
+          <div class="header-usp__text">
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="header-usp__link" target="{{ block.settings.link_target }}">
+            {% endif %}
+            {% if block.settings.icon != 'none' %}
+              <span class="header-usp__icon">
+                {% render 'icon-accordion', icon: block.settings.icon %}
+              </span>
+            {% endif %}
+            {{ block.settings.usp_text }}
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileAddToMenuDivs = document.querySelectorAll('.mobile-add-to-menu');
+    const menuDrawer = document.querySelector('.menu-drawer__navigation');
+    const isMobileOrTablet = () => window.innerWidth <= 990;
+    const updateMenuForMobile = () => {
+      if (isMobileOrTablet()) {
+        mobileAddToMenuDivs.forEach((mobileAddToMenu, index) => {
+          mobileAddToMenu.style.display = 'none';
+          const uspTextElements = mobileAddToMenu.querySelectorAll('.header-usp__text');
+          uspTextElements.forEach((uspTextElement, childIndex) => {
+            const uniqueId = `usp-text-${index}-${childIndex}`;
+            if (!menuDrawer.querySelector(`[data-unique-id="${uniqueId}"]`)) {
+              const uspTextClone = uspTextElement.cloneNode(true);
+              uspTextClone.setAttribute('data-unique-id', uniqueId);
+              menuDrawer.appendChild(uspTextClone);
+            }
+          });
+        });
+      } else {
+        mobileAddToMenuDivs.forEach((mobileAddToMenu, index) => {
+          mobileAddToMenu.style.display = '';
+          const uspTextElements = mobileAddToMenu.querySelectorAll('.header-usp__text');
+          uspTextElements.forEach((_, childIndex) => {
+            const uniqueId = `usp-text-${index}-${childIndex}`;
+            const addedUspText = menuDrawer.querySelector(`[data-unique-id="${uniqueId}"]`);
+            if (addedUspText) {
+              menuDrawer.removeChild(addedUspText);
+            }
+          });
+        });
+      }
+    };
+
+    updateMenuForMobile();
+    window.addEventListener('resize', updateMenuForMobile);
+  });
+</script>
 
 {% schema %}
 {

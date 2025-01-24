@@ -12,6 +12,26 @@
         "name": "page_reference",
         "category": "REFERENCE"
       }
+    },
+    {
+      "key": "parent_collection",
+      "namespace": "custom",
+      "name": "Parent Collection",
+      "description": "",
+      "type": {
+        "name": "collection_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "collection_icon",
+      "namespace": "custom",
+      "name": "Collection Icon ",
+      "description": "",
+      "type": {
+        "name": "file_reference",
+        "category": "REFERENCE"
+      }
     }
   ],
   "company": [],
