@@ -125,11 +125,13 @@
         render 'header-drawer'
       endif
 
+      assign show_icon_title = section.settings.show_icon_title
+
       if section.settings.logo_position == 'top-center' or section.settings.menu == blank
         if section.settings.search_default_open
           render 'search-desktop'
         else
-          render 'header-search', input_id: 'Search-In-Modal-1'
+          render 'header-search', input_id: 'Search-In-Modal-1', show_icon_title: show_icon_title
         endif
       endif
     -%}
@@ -241,7 +243,7 @@
       </div>
 
       {% if section.settings.search_default_open == false %}
-        {% render 'header-search', input_id: 'Search-In-Modal' %}
+          {% render 'header-search', input_id: 'Search-In-Modal', show_icon_title: show_icon_title %}
       {% endif %}
 
       {%- if shop.customer_accounts_enabled and customer == blank -%}

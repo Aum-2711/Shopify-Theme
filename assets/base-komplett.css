@@ -56,7 +56,11 @@ header.header {
   margin: 0 auto;
 }
 
-a.header__icon {
+.header__icons {
+  align-items: center;
+}
+
+.header__icon {
   min-width: 64px;
   min-height: 50px;
   height: auto;
@@ -65,17 +69,31 @@ a.header__icon {
   transition: all 0.2s;
 }
 
+.header__icon-title,
 .header__menu-item span,
 .header__menu-item:hover > span,
 .header__active-menu-item {
   text-decoration: none;
 }
 
-a.header__icon:hover,
+.header__icon:hover,
 .header__menu-item:hover {
   transform: translateY(-3px);
   border-bottom: 3px solid #f8b912;
   text-decoration: none;
+}
+
+.header__search {
+  line-height: normal;
+}
+
+.field__input:focus ~ .field__label {
+  left: 50px;
+}
+
+.svg-wrapper > .icon-search path {
+  stroke: currentColor;
+  stroke-width: 1;
 }
 
 .desktop-search .search__input.field__input {
@@ -180,8 +198,9 @@ a.header__icon:hover,
     display: none;
   }
 
-  summary.list-menu__item {
+  .header summary.list-menu__item {
     padding: 1px 6px;
+    padding-right: 6px;
   }
 
   .mega-menu__content {
