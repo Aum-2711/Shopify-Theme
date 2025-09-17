@@ -18,13 +18,21 @@
     {% endif %}
 
     {% render 'meta-tags' %}
+
+    {% render 'style' %}
     
     {{ content_for_header }}
   </head>
 
   <body>
+    {%- section 'header' -%}
+    
     <main role="main" tabindex="-1">
       {{ content_for_layout }}
+      <h1 class="page-title">Shop Our Collection</h1>
+      <h2 class="section-title">Featured Products</h2>
+      <p>Our store offers the best quality products for you.</p>
+      <a href="/collections/all">Browse All Products</a>
     </main>
   </body>
 </html>
