@@ -6,5 +6,719 @@
     "theme_author": "Oleksandr Ostrovskyi",
     "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
     "theme_support_url": "https://support.shopify.com/"
+  },
+  // Logo & Favicon settings
+  {
+    "name": "Logo & Favicon",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo & Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_max_width",
+        "label": "Logo max width",
+        "min": 50,
+        "max": 400,
+        "step": 10,
+        "default": 150,
+        "unit": "px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  },
+  // Theme Colors settings
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Background"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "background_color2",
+        "label": "Background Color 2",
+        "default": "#f5f5f5"
+      },
+      {
+        "type": "header",
+        "content": "Accents"
+      },
+      {
+        "type": "color",
+        "id": "accent_color1",
+        "label": "Accent Color 1",
+        "default": "#ff0000"
+      },
+      {
+        "type": "color",
+        "id": "accent_color2",
+        "label": "Accent Color 2",
+        "default": "#00ff00"
+      },
+      {
+        "type": "color",
+        "id": "accent_color3",
+        "label": "Accent Color 3",
+        "default": "#0000ff"
+      },
+      {
+        "type": "color",
+        "id": "accent_color4",
+        "label": "Accent Color 4",
+        "default": "#ff9900"
+      },
+      {
+        "type": "color",
+        "id": "accent_color5",
+        "label": "Accent Color 5",
+        "default": "#ff00ff"
+      },
+      {
+        "type": "header",
+        "content": "Typography"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "link_color",
+        "label": "Link Color",
+        "default": "#0066cc"
+      },
+      {
+        "type": "color",
+        "id": "link_hover_color",
+        "label": "Link Hover Color",
+        "default": "#004499"
+      }
+    ]
+  },
+  // Buttons settings
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button 1"
+      },
+      {
+        "type": "color",
+        "id": "button1_color",
+        "label": "Button Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button1_text_color",
+        "label": "Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button1_border_color",
+        "label": "Button Border Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "button1_hover_color",
+        "label": "Hover Button Color",
+        "default": "#333333"
+      },
+      {
+        "type": "color",
+        "id": "button1_hover_text_color",
+        "label": "Hover Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button1_hover_border_color",
+        "label": "Hover Button Border Color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "button1_border_radius",
+        "label": "Border Radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button1_border_width",
+        "label": "Border Width",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button1_font_size",
+        "label": "Font Size",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "button1_font_weight",
+        "label": "Font Weight",
+        "default": "500",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      },
+
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "color",
+        "id": "button2_color",
+        "label": "Button Color",
+        "default": "#0066cc"
+      },
+      {
+        "type": "color",
+        "id": "button2_text_color",
+        "label": "Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button2_border_color",
+        "label": "Button Border Color",
+        "default": "#0066cc"
+      },
+      {
+        "type": "color",
+        "id": "button2_hover_color",
+        "label": "Hover Button Color",
+        "default": "#004499"
+      },
+      {
+        "type": "color",
+        "id": "button2_hover_text_color",
+        "label": "Hover Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button2_hover_border_color",
+        "label": "Hover Button Border Color",
+        "default": "#004499"
+      },
+      {
+        "type": "range",
+        "id": "button2_border_radius",
+        "label": "Border Radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button2_border_width",
+        "label": "Border Width",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button2_font_size",
+        "label": "Font Size",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "button2_font_weight",
+        "label": "Font Weight",
+        "default": "500",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      },
+
+      {
+        "type": "header",
+        "content": "Button 3"
+      },
+      {
+        "type": "color",
+        "id": "button3_color",
+        "label": "Button Color",
+        "default": "#ff6600"
+      },
+      {
+        "type": "color",
+        "id": "button3_text_color",
+        "label": "Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button3_border_color",
+        "label": "Button Border Color",
+        "default": "#ff6600"
+      },
+      {
+        "type": "color",
+        "id": "button3_hover_color",
+        "label": "Hover Button Color",
+        "default": "#cc5200"
+      },
+      {
+        "type": "color",
+        "id": "button3_hover_text_color",
+        "label": "Hover Button Text Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "button3_hover_border_color",
+        "label": "Hover Button Border Color",
+        "default": "#cc5200"
+      },
+      {
+        "type": "range",
+        "id": "button3_border_radius",
+        "label": "Border Radius",
+        "min": 0,
+        "max": 50,
+        "step": 1,
+        "default": 4,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button3_border_width",
+        "label": "Border Width",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "button3_font_size",
+        "label": "Font Size",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "button3_font_weight",
+        "label": "Font Weight",
+        "default": "500",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      }
+    ]
+  },
+  // Typography
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Heading Typography"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_custom_heading_font",
+        "label": "Use custom heading font?",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading Font (Shopify)",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_heading_font_cdn",
+        "label": "Custom Heading Font CDN Embed Code",
+        "info": "Paste the <link> tags from Google Fonts or another CDN here."
+      },
+      {
+        "type": "text",
+        "id": "custom_heading_font_family",
+        "label": "Custom Heading Font Family (CSS syntax)",
+        "info": "Example: \"Barlow Semi Condensed\", sans-serif"
+      },
+
+      {
+        "type": "range",
+        "id": "page_title_font_size",
+        "label": "Page Title Font Size",
+        "min": 16,
+        "max": 80,
+        "step": 1,
+        "default": 36,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "page_title_font_weight",
+        "label": "Page Title Font Weight",
+        "default": "700",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "section_title_font_size",
+        "label": "Section Title Font Size",
+        "min": 14,
+        "max": 60,
+        "step": 1,
+        "default": 28,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "section_title_font_weight",
+        "label": "Section Title Font Weight",
+        "default": "600",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      },
+
+      {
+        "type": "header",
+        "content": "Body Typography"
+      },
+      {
+        "type": "checkbox",
+        "id": "use_custom_body_font",
+        "label": "Use custom body font?",
+        "default": false
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body Font (Shopify)",
+        "default": "helvetica_n4"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_body_font_cdn",
+        "label": "Custom Body Font CDN Embed Code",
+        "info": "Paste the <link> tags from Google Fonts or another CDN here."
+      },
+      {
+        "type": "text",
+        "id": "custom_body_font_family",
+        "label": "Custom Body Font Family (CSS syntax)",
+        "info": "Example: \"Open Sans\", sans-serif"
+      },
+
+      {
+        "type": "range",
+        "id": "body_font_size",
+        "label": "Body Text Font Size",
+        "min": 12,
+        "max": 32,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "body_font_weight",
+        "label": "Body Text Font Weight",
+        "default": "400",
+        "options": [
+          { "value": "300", "label": "Light" },
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "link_font_size",
+        "label": "Anchor (Link) Font Size",
+        "min": 12,
+        "max": 32,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      },
+      {
+        "type": "select",
+        "id": "link_font_weight",
+        "label": "Anchor (Link) Font Weight",
+        "default": "500",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-bold" },
+          { "value": "700", "label": "Bold" }
+        ]
+      }
+    ]
+  },
+  // Layout settings
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "number",
+        "id": "page_width",
+        "label": "Page Width (px)",
+        "default": 1200
+      },
+      {
+        "type": "checkbox",
+        "id": "page_full_width",
+        "label": "Enable Full Width Layout",
+        "default": false
+      },
+      {
+        "type": "range",
+        "id": "page_padding_x",
+        "label": "Page Horizontal Padding (Left & Right)",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Space Between Sections",
+        "min": 0,
+        "max": 200,
+        "step": 5,
+        "default": 60,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "column_gap",
+        "label": "Gap Between Columns",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "row_gap",
+        "label": "Gap Between Rows",
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "default": 20,
+        "unit": "px"
+      }
+    ]
+  },
+  // Swatches settings
+  {
+    "name": "Swatches",
+    "settings": [
+      {
+        "type": "select",
+        "id": "swatch_display_type",
+        "label": "Text Swatch Display Type",
+        "options": [
+          { "value": "text", "label": "Text Swatches" },
+          { "value": "dropdown", "label": "Dropdown" }
+        ],
+        "default": "text"
+      },
+      {
+       "type": "select",
+        "id": "image_swatch_display_type",
+        "label": "Image Swatch Display Type",
+        "options": [
+          { "value": "dropdown", "label": "Dropdown" },
+          { "value": "color", "label": "Color Swatches" },
+          { "value": "image", "label": "Image Swatches" }
+        ],
+        "default": "color"
+      }
+    ]
+  },
+  // Form settings
+  {
+    "name": "Form",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Input Fields"
+      },
+      {
+        "type": "color",
+        "id": "input_bg_color",
+        "label": "Input Background Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "input_border_radius",
+        "label": "Input Border Radius (px)",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "input_border_width",
+        "label": "Input Border Width (px)",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 1
+      },
+      {
+        "type": "range",
+        "id": "input_padding",
+        "label": "Input Padding (px)",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "default": 10
+      },
+      {
+        "type": "select",
+        "id": "input_font_weight",
+        "label": "Input Font Weight",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-Bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "input_font_size",
+        "label": "Input Font Size (px)",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 14
+      },
+
+      {
+        "type": "header",
+        "content": "Labels"
+      },
+      {
+        "type": "color",
+        "id": "label_text_color",
+        "label": "Label Text Color",
+        "default": "#333333"
+      },
+      {
+        "type": "range",
+        "id": "label_font_size",
+        "label": "Label Font Size (px)",
+        "min": 10,
+        "max": 40,
+        "step": 1,
+        "default": 14
+      },
+      {
+        "type": "select",
+        "id": "label_font_weight",
+        "label": "Label Font Weight",
+        "options": [
+          { "value": "400", "label": "Normal" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi-Bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "500"
+      },
+      {
+        "type": "range",
+        "id": "label_margin_bottom",
+        "label": "Spacing Below Label (px)",
+        "min": 0,
+        "max": 30,
+        "step": 1,
+        "default": 6
+      }
+    ]
   }
+
 ]
+
