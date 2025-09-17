@@ -1,0 +1,18 @@
+
+window.theme = window.theme || {};
+
+theme.cart = (function(){
+  const init = () => {
+
+  }
+  return {
+    init
+  }
+})($)
+
+theme.init = function(){
+  theme.cart.init()
+}
+$(function(){
+  theme.init($)
+})
