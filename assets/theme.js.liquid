@@ -16,3 +16,67 @@ theme.init = function(){
 $(function(){
   theme.init($)
 })
+
+document.addEventListener("DOMContentLoaded", function() {
+  const input = document.querySelector("#result-q");
+  const resultsContainer = document.querySelector("#live-search-results");
+  const form = document.querySelector("#live-search-form");
+
+  let debounceTimer;
+
+  input.addEventListener("input", function() {
+    clearTimeout(debounceTimer);
+    const query = this.value.trim();
+
+    if (query.length < 2) {
+      resultsContainer.innerHTML = "";
+      return;
+    }
+
+    debounceTimer = setTimeout(() => {
+      fetch(`/search/suggest.json?q=${encodeURIComponent(query)}&resources[type]=product,article,page&resources[limit]=15`)
+        .then(res => res.json())
+        .then(data => {
+          let html = "";
+
+          if (data.resources.results.products.length) {
+            html += `<div class="search-suggest-group"><h4>Products</h4><ul>`;
+            data.resources.results.products.forEach(p => {
+              html += `
+                <li>
+                  <a href="${p.url}" class="search-suggest-item">
+                    ${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy" />` : ""}
+                    <span>${p.title}</span>
+                  </a>
+                </li>
+              `;
+            });
+            html += `</ul></div>`;
+          }
+
+          if (data.resources.results.articles.length) {
+            html += `<div class="search-suggest-group"><h4>Articles</h4><ul>`;
+            data.resources.results.articles.forEach(a => {
+              html += `<li><a href="${a.url}" class="search-suggest-item">${a.title}</a></li>`;
+            });
+            html += `</ul></div>`;
+          }
+
+          if (data.resources.results.pages.length) {
+            html += `<div class="search-suggest-group"><h4>Pages</h4><ul>`;
+            data.resources.results.pages.forEach(pg => {
+              html += `<li><a href="${pg.url}" class="search-suggest-item">${pg.title}</a></li>`;
+            });
+            html += `</ul></div>`;
+          }
+
+          resultsContainer.innerHTML = html || `<p>No results for "${query}"</p>`;
+        });
+    }); // debounce delay
+  });
+
+  // Keep normal behavior on submit (redirect to search page)
+  form.addEventListener("submit", function() {
+    resultsContainer.innerHTML = ""; // optional: clear live results
+  });
+});

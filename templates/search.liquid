@@ -1,39 +1,45 @@
-<div id="searchresults">  
-  <form action="/search" method="get">
-    <p><input type="text" name="q" value="{{search.terms  | escape}}" id="result-q" /> <input type="submit" value="Search" style="width:100px" /></p>
-  </form>
-  
+<div class="search-container page-wrapper">
   {% if search.performed %}
-    
-    {% paginate search.results by 10 %}  
-  
-    {% if search.results == empty %}  
-      <p>Your search for "{{search.terms | escape}}" did not yield any results</p>              
-    {% else %}  
+    {% paginate search.results by 12 %}  
 
-        <ol>
-        {% for item in search.results %}      
-        <li>
-          <h3>{{ item.title | link_to: item.url }}</h3>
-          {% if item.featured_image %}
-          <div class="result-image"><a href="{{item.url}}" title="">{{ item.featured_image | product_img_url: 'small' | img_tag }}</a></div>
-          {% endif %}
-          <span>{{ item.content | strip_html | truncatewords: 40 | highlight: search.terms }}</span>
-          <div style="clear:left"></div>          
-        </li>
-        {% endfor %}
-        </ol>      
+      {% if search.results == empty %}  
+        <div class="search-empty text-body">
+          <p>No results found for "<strong>{{ search.terms | escape }}</strong>".</p>
+          <p>Try checking spelling, using fewer words, or <a href="/collections/all" class="text-link">browse all products</a>.</p>
+        </div>              
+      {% else %}  
+        <div class="search-results grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+          {% for item in search.results %}      
+            <article class="search-result-card">
+              <a href="{{ item.url }}" class="search-result-image">
+                {% if item.featured_image %}
+                  {{ item.featured_image | product_img_url: '400x' | img_tag: item.title, 'loading="lazy"' }}
+                {% else %}
+                  <div class="placeholder-image bg-secondary"></div>
+                {% endif %}
+              </a>
+              <div class="search-result-content">
+                <h3 class="search-result-title">
+                  {{ item.title | link_to: item.url }}
+                </h3>
+                {% if item.object_type == 'product' %}
+                  <p class="search-result-price text-accent-1">
+                    {{ item.price | money }}
+                  </p>
+                {% endif %}
+                <p class="search-result-snippet">
+                  {{ item.content | strip_html | truncatewords: 30 | highlight: search.terms }}
+                </p>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      {% endif %}
 
-    {% endif %}
-    
-    
-    <p>{{ paginate | default_pagination }}</p>
-    
+      <div class="search-pagination">
+        {{ paginate | default_pagination }}
+      </div>
+
     {% endpaginate %}    
-    
   {% endif %}
-  
-  
-  
-
 </div>

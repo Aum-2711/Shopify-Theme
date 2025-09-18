@@ -1,0 +1,80 @@
+<header>
+    <div class="header-container">
+        <div class="logo" style="text-align: {{ section.settings.logo_position | split: '-' | last }};">
+            {% if settings.logo %}
+                <a href="{{ shop.url }}">
+                    <img
+                    src="{{ settings.logo | img_url: settings.logo_max_width | append: 'px' }}" 
+                    width="{{ settings.logo_max_width | append: 'px' }}" 
+                    alt="{{ shop.name }}"
+                    >
+                </a>
+            {% else %}
+                <h1><a href="{{ shop.url }}">{{ shop.name }}</a></h1>
+            {% endif %}
+        </div>
+
+        {% render 'search-bar' %}
+
+        <div class="customer">
+            {% if shop.customer_accounts_enabled %}
+                <div class="header__customer">
+                    {% if customer %}
+                    <a href="/account" class="header__account-link">
+                        <svg class="icon icon-account" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M12 12c2.67 0 4.8-2.13 4.8-4.8S14.67 2.4 12 2.4 7.2 4.53 7.2 7.2 9.33 12 12 12zM12 14.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                        </svg>
+                        <span class="header__account-text">Account</span>
+                    </a>
+                    <a href="/account/logout" class="header__logout-link">Logout</a>
+                    {% else %}
+                    <a href="/account/login" class="header__login-link">
+                        <svg class="icon icon-login" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM20 3H4c-1.11 0-2 .9-2 2v4h2V5h16v14H4v-4H2v4c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2z"/>
+                        </svg>
+                        <span class="header__login-text">Login</span>
+                    </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="cart">  
+            <span>Count: 0</span>
+        </div>
+        <nav class="main-menu" data-menu-type="{{ section.settings.menu_type_desktop }}">
+            {% if section.settings.menu %}
+                {% assign main_menu = linklists[section.settings.menu] %}
+                <ul>
+                    {% for link in main_menu.links %}
+                        <li>
+                            <a href="{{ link.url }}">{{ link.title }}</a>
+                            {% if link.links.size > 0 and section.settings.menu_type_desktop != 'drawer' %}
+                                <ul class="sub-menu">
+                                    {% for sublink in link.links %}
+                                        <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "max_blocks": 3,
+  "settings": [
+    
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ]
+}
+{% endschema %}
