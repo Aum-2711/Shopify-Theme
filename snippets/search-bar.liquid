@@ -1,0 +1,21 @@
+<div class="search-container page-wrapper">
+  <form action="/search" method="get" class="search-form grid" 
+        style="grid-template-columns: 1fr auto; gap: var(--column-gap);" id="live-search-form">
+    <div>
+      <label for="result-q" class="visually-hidden">Search our store</label>
+      <input 
+        type="text" 
+        name="q" 
+        id="result-q" 
+        value="{{ search.terms | escape }}" 
+        placeholder="Search products, articles..." 
+        autocomplete="off"
+        aria-expanded="false" 
+        aria-controls="live-search-results"
+      />
+    </div>
+    <button type="submit" class="btn btn-1">Search</button>
+  </form>
+
+  <div id="live-search-results"></div>
+</div>

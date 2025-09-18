@@ -1,38 +1,37 @@
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="theme-color" content="">
-    <link rel="canonical" href="{{ canonical_url }}">
-    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <title>
-      {{ page_title }}
-      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
-      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
-    </title>
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+<html lang="{{ shop.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="icon" type="image/png" href="{{settings.favicon | img_url: '32x'}}" />
+  <title>
+    {{ page_title }}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
 
-    {% render 'meta-tags' %}
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}" />
+  {% endif %}
+  
+  {% include 'style-tags' %}
+  {% include 'script-tags' %}
+  
+  {{ content_for_header }}
+  
+</head>
+<body class="{{template.suffix}}">
+    <header>
+        {%- section 'header' -%}
+    </header>
 
-    {% render 'style' %}
-    
-    {{ content_for_header }}
-  </head>
-
-  <body>
-    {%- section 'header' -%}
-    
-    <main role="main" tabindex="-1">
+    <main>
       {{ content_for_layout }}
-      <h1 class="page-title">Shop Our Collection</h1>
-      <h2 class="section-title">Featured Products</h2>
-      <p>Our store offers the best quality products for you.</p>
-      <a href="/collections/all">Browse All Products</a>
     </main>
-  </body>
+
+    <footer>
+      {%- section 'footer' -%}
+    </footer>
+</body>
 </html>
