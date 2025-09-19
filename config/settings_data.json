@@ -27,7 +27,7 @@
         "settings": {
           "nav_menu": "main-menu",
           "custom_text_color": "text-body",
-          "custom_background_color": "bg-primary"
+          "custom_background_color": "bg-accent-4"
         }
       },
       "footer": {
