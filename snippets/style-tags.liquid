@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.theme.default.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/native-toast@2.0.0/dist/native-toast.min.css">
- <!-- Local --> 
+<!-- Local -->
 <link type="text/css" href="{{ 'theme.scss.css' | asset_url }}" rel="stylesheet">
 
 {% comment %}
@@ -13,7 +13,7 @@
 {%- if settings.use_custom_heading_font and settings.custom_heading_font_cdn != blank -%}
   {{ settings.custom_heading_font_cdn }}
 {%- else -%}
-   {% assign heading_font = settings.heading_font | font_face %}
+  {% assign heading_font = settings.heading_font | font_face %}
 {%- endif -%}
 
 {%- if settings.use_custom_body_font and settings.custom_body_font_cdn != blank -%}
@@ -21,7 +21,6 @@
 {%- else -%}
   {% assign body_font = settings.body_font | font_face %}
 {%- endif -%}
-
 
 {% comment %}
   Assign font variables for CSS
@@ -40,430 +39,653 @@
 {%- endif -%}
 
 <style>
-  :root {
-    --background-color: {{ settings.background_color }};
-    --background-color-2: {{ settings.background_color2 }};
+    :root {
+      --background-color: {{ settings.background_color }};
+      --background-color-2: {{ settings.background_color2 }};
 
-    --accent-color-1: {{ settings.accent_color1 }};
-    --accent-color-2: {{ settings.accent_color2 }};
-    --accent-color-3: {{ settings.accent_color3 }};
-    --accent-color-4: {{ settings.accent_color4 }};
-    --accent-color-5: {{ settings.accent_color5 }};
+      --accent-color-1: {{ settings.accent_color1 }};
+      --accent-color-2: {{ settings.accent_color2 }};
+      --accent-color-3: {{ settings.accent_color3 }};
+      --accent-color-4: {{ settings.accent_color4 }};
+      --accent-color-5: {{ settings.accent_color5 }};
 
-    --heading-color: {{ settings.heading_color }};
-    --text-color: {{ settings.text_color }};
-    --link-color: {{ settings.link_color }};
-    --link-hover-color: {{ settings.link_hover_color }};
+      --heading-color: {{ settings.heading_color }};
+      --text-color: {{ settings.text_color }};
+      --link-color: {{ settings.link_color }};
+      --link-hover-color: {{ settings.link_hover_color }};
+
+      /* Button 1 */
+      --btn1-bg: {{ settings.button1_color }};
+      --btn1-text: {{ settings.button1_text_color }};
+      --btn1-border: {{ settings.button1_border_color }};
+      --btn1-hover-bg: {{ settings.button1_hover_color }};
+      --btn1-hover-text: {{ settings.button1_hover_text_color }};
+      --btn1-hover-border: {{ settings.button1_hover_border_color }};
+      --btn1-radius: {{ settings.button1_border_radius }}px;
+      --btn1-border-width: {{ settings.button1_border_width }}px;
+      --btn1-font-size: {{ settings.button1_font_size }}px;
+      --btn1-font-weight: {{ settings.button1_font_weight }};
+
+      /* Button 2 */
+      --btn2-bg: {{ settings.button2_color }};
+      --btn2-text: {{ settings.button2_text_color }};
+      --btn2-border: {{ settings.button2_border_color }};
+      --btn2-hover-bg: {{ settings.button2_hover_color }};
+      --btn2-hover-text: {{ settings.button2_hover_text_color }};
+      --btn2-hover-border: {{ settings.button2_hover_border_color }};
+      --btn2-radius: {{ settings.button2_border_radius }}px;
+      --btn2-border-width: {{ settings.button2_border_width }}px;
+      --btn2-font-size: {{ settings.button2_font_size }}px;
+      --btn2-font-weight: {{ settings.button2_font_weight }};
+
+      /* Button 3 */
+      --btn3-bg: {{ settings.button3_color }};
+      --btn3-text: {{ settings.button3_text_color }};
+      --btn3-border: {{ settings.button3_border_color }};
+      --btn3-hover-bg: {{ settings.button3_hover_color }};
+      --btn3-hover-text: {{ settings.button3_hover_text_color }};
+      --btn3-hover-border: {{ settings.button3_hover_border_color }};
+      --btn3-radius: {{ settings.button3_border_radius }}px;
+      --btn3-border-width: {{ settings.button3_border_width }}px;
+      --btn3-font-size: {{ settings.button3_font_size }}px;
+      --btn3-font-weight: {{ settings.button3_font_weight }};
+
+       /* Font Family Variables */
+      --font-heading: {{ heading_font_family }};
+      --font-body: {{ body_font_family }};
+
+      /* Heading Font Weight and Sizes */
+      --font-weight-page-title: {{ settings.page_title_font_weight }};
+      --font-size-page-title: {{ settings.page_title_font_size }}px;
+      --font-weight-section-title: {{ settings.section_title_font_weight }};
+      --font-size-section-title: {{ settings.section_title_font_size }}px;
+
+      /* Body Font Weight and Sizes */
+      --font-weight-body: {{ settings.body_font_weight }};
+      --font-size-body: {{ settings.body_font_size }}px;
+      --font-weight-link: {{ settings.link_font_weight }};
+      --font-size-link: {{ settings.link_font_size }}px;
+
+      /* Headings Font Sizes */
+      --font-size-h1: {{ settings.h1_font_size }}px;
+      --font-size-h2: {{ settings.h2_font_size }}px;
+      --font-size-h3: {{ settings.h3_font_size }}px;
+      --font-size-h4: {{ settings.h4_font_size }}px;
+      --font-size-h5: {{ settings.h5_font_size }}px;
+      --font-size-h6: {{ settings.h6_font_size }}px;
+
+      /* Layout */
+      --page-width: {{ settings.page_width }}px;
+      --page-full-width: {{ settings.page_full_width }};
+      --page-padding-x: {{ settings.page_padding_x }}px;
+      --section-spacing: {{ settings.section_spacing }}px;
+      --column-gap: {{ settings.column_gap }}px;
+      --row-gap: {{ settings.row_gap }}px;
+
+      /* Input Fields */
+      --input-bg-color: {{ settings.input_bg_color }};
+      --input-border-radius: {{ settings.input_border_radius }}px;
+      --input-border-width: {{ settings.input_border_width }}px;
+      --input-padding: {{ settings.input_padding }}px;
+      --input-font-size: {{ settings.input_font_size }}px;
+      --input-font-weight: {{ settings.input_font_weight }};
+
+      /* Labels */
+      --label-text-color: {{ settings.label_text_color }};
+      --label-font-size: {{ settings.label_font_size }}px;
+      --label-font-weight: {{ settings.label_font_weight }};
+      --label-margin-bottom: {{ settings.label_margin_bottom }}px;
+    }
+
+    /* Backgrounds */
+    .bg-primary { background-color: var(--background-color); }
+    .bg-secondary { background-color: var(--background-color-2); }
+
+    /* Accents */
+    .bg-accent-1 { background-color: var(--accent-color-1); }
+    .bg-accent-2 { background-color: var(--accent-color-2); }
+    .bg-accent-3 { background-color: var(--accent-color-3); }
+    .bg-accent-4 { background-color: var(--accent-color-4); }
+    .bg-accent-5 { background-color: var(--accent-color-5); }
+
+    .text-accent-1 { color: var(--accent-color-1); }
+    .text-accent-2 { color: var(--accent-color-2); }
+    .text-accent-3 { color: var(--accent-color-3); }
+    .text-accent-4 { color: var(--accent-color-4); }
+    .text-accent-5 { color: var(--accent-color-5); }
+
+    /* Typography */
+    .text-heading { color: var(--heading-color); }
+    .text-body { color: var(--text-color); }
+    .text-link { color: var(--link-color); }
+    .text-link:hover { color: var(--link-hover-color); }
+
+    /* Base button style */
+    .btn {
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      padding: 0.5em 1em;
+      border-style: solid;
+      transition: all 0.2s ease;
+    }
 
     /* Button 1 */
-    --btn1-bg: {{ settings.button1_color }};
-    --btn1-text: {{ settings.button1_text_color }};
-    --btn1-border: {{ settings.button1_border_color }};
-    --btn1-hover-bg: {{ settings.button1_hover_color }};
-    --btn1-hover-text: {{ settings.button1_hover_text_color }};
-    --btn1-hover-border: {{ settings.button1_hover_border_color }};
-    --btn1-radius: {{ settings.button1_border_radius }}px;
-    --btn1-border-width: {{ settings.button1_border_width }}px;
-    --btn1-font-size: {{ settings.button1_font_size }}px;
-    --btn1-font-weight: {{ settings.button1_font_weight }};
+    .btn-1 {
+      background-color: var(--btn1-bg);
+      color: var(--btn1-text);
+      border-color: var(--btn1-border);
+      border-radius: var(--btn1-radius);
+      border-width: var(--btn1-border-width);
+      font-size: var(--btn1-font-size);
+      font-weight: var(--btn1-font-weight);
+    }
+    .btn-1:hover {
+      background-color: var(--btn1-hover-bg);
+      color: var(--btn1-hover-text);
+      border-color: var(--btn1-hover-border);
+    }
 
     /* Button 2 */
-    --btn2-bg: {{ settings.button2_color }};
-    --btn2-text: {{ settings.button2_text_color }};
-    --btn2-border: {{ settings.button2_border_color }};
-    --btn2-hover-bg: {{ settings.button2_hover_color }};
-    --btn2-hover-text: {{ settings.button2_hover_text_color }};
-    --btn2-hover-border: {{ settings.button2_hover_border_color }};
-    --btn2-radius: {{ settings.button2_border_radius }}px;
-    --btn2-border-width: {{ settings.button2_border_width }}px;
-    --btn2-font-size: {{ settings.button2_font_size }}px;
-    --btn2-font-weight: {{ settings.button2_font_weight }};
+      .btn-2 {
+      background-color: var(--btn2-bg);
+      color: var(--btn2-text);
+      border-color: var(--btn2-border);
+      border-radius: var(--btn2-radius);
+      border-width: var(--btn2-border-width);
+      font-size: var(--btn2-font-size);
+      font-weight: var(--btn2-font-weight);
+    }
+    .btn-2:hover {
+      background-color: var(--btn2-hover-bg);
+      color: var(--btn2-hover-text);
+      border-color: var(--btn2-hover-border);
+    }
 
     /* Button 3 */
-    --btn3-bg: {{ settings.button3_color }};
-    --btn3-text: {{ settings.button3_text_color }};
-    --btn3-border: {{ settings.button3_border_color }};
-    --btn3-hover-bg: {{ settings.button3_hover_color }};
-    --btn3-hover-text: {{ settings.button3_hover_text_color }};
-    --btn3-hover-border: {{ settings.button3_hover_border_color }};
-    --btn3-radius: {{ settings.button3_border_radius }}px;
-    --btn3-border-width: {{ settings.button3_border_width }}px;
-    --btn3-font-size: {{ settings.button3_font_size }}px;
-    --btn3-font-weight: {{ settings.button3_font_weight }};
+    .btn-3 {
+      background-color: var(--btn3-bg);
+      color: var(--btn3-text);
+      border-color: var(--btn3-border);
+      border-radius: var(--btn3-radius);
+      border-width: var(--btn3-border-width);
+      font-size: var(--btn3-font-size);
+      font-weight: var(--btn3-font-weight);
+    }
+    .btn-3:hover {
+      background-color: var(--btn3-hover-bg);
+      color: var(--btn3-hover-text);
+      border-color: var(--btn3-hover-border);
+    }
 
-     /* Font Family Variables */
-    --font-heading: {{ heading_font_family }};
-    --font-body: {{ body_font_family }};
-    
-    /* Heading Font Weight and Sizes */
-    --font-weight-page-title: {{ settings.page_title_font_weight }};
-    --font-size-page-title: {{ settings.page_title_font_size }}px;
-    --font-weight-section-title: {{ settings.section_title_font_weight }};
-    --font-size-section-title: {{ settings.section_title_font_size }}px;
+    /* Apply CSS Variables to Elements */
+    {{ heading_font }}
+    {{ body_font }}
 
-    /* Body Font Weight and Sizes */
-    --font-weight-body: {{ settings.body_font_weight }};
-    --font-size-body: {{ settings.body_font_size }}px;
-    --font-weight-link: {{ settings.link_font_weight }};
-    --font-size-link: {{ settings.link_font_size }}px;
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+    }
 
-    /* Headings Font Sizes */
-    --font-size-h1: {{ settings.h1_font_size }}px;
-    --font-size-h2: {{ settings.h2_font_size }}px;
-    --font-size-h3: {{ settings.h3_font_size }}px;
-    --font-size-h4: {{ settings.h4_font_size }}px;
-    --font-size-h5: {{ settings.h5_font_size }}px;
-    --font-size-h6: {{ settings.h6_font_size }}px;
+    body {
+      font-family: var(--font-body);
+      font-weight: var(--font-weight-body);
+      font-size: var(--font-size-body);
+      box-sizing: border-box;
+      margin: 0;
+    }
 
-    /* Layout */
-    --page-width: {{ settings.page_width }}px;
-    --page-full-width: {{ settings.page_full_width }};
-    --page-padding-x: {{ settings.page_padding_x }}px;
-    --section-spacing: {{ settings.section_spacing }}px;
-    --column-gap: {{ settings.column_gap }}px;
-    --row-gap: {{ settings.row_gap }}px;
+    a {
+      font-family: var(--font-body);
+      font-weight: var(--font-weight-link);
+      font-size: var(--font-size-link);
+    }
 
-    /* Input Fields */
-    --input-bg-color: {{ settings.input_bg_color }};
-    --input-border-radius: {{ settings.input_border_radius }}px;
-    --input-border-width: {{ settings.input_border_width }}px;
-    --input-padding: {{ settings.input_padding }}px;
-    --input-font-size: {{ settings.input_font_size }}px;
-    --input-font-weight: {{ settings.input_font_weight }};
+    /* Specific heading styles */
+    .page-title { /* or whatever selector you use for page titles */
+      font-size: var(--font-size-page-title);
+      font-weight: var(--font-weight-page-title);
+    }
+
+    .section-title { /* or whatever selector you use for section titles */
+      font-size: var(--font-size-section-title);
+      font-weight: var(--font-weight-section-title);
+    }
+
+    /* Individual headings */
+    h1 { font-size: var(--font-size-h1); }
+    h2 { font-size: var(--font-size-h2); }
+    h3 { font-size: var(--font-size-h3); }
+    h4 { font-size: var(--font-size-h4); }
+    h5 { font-size: var(--font-size-h5); }
+    h6 { font-size: var(--font-size-h6); }
+
+    /* Page wrapper */
+    .page-wrapper {
+      max-width: var(--page-width);
+      width: 100%;
+      margin: 0 auto;
+      padding-left: var(--page-padding-x);
+      padding-right: var(--page-padding-x);
+    }
+
+    {% if settings.page_full_width %}
+    .page-wrapper {
+      max-width: 100%;
+      padding-left: var(--page-padding-x);
+      padding-right: var(--page-padding-x);
+    }
+    {% endif %}
+
+    /* Section spacing */
+    section {
+      margin-bottom: var(--section-spacing);
+    }
+
+    /* Grid layout */
+    .grid {
+      display: grid;
+      gap: var(--row-gap) var(--column-gap);
+    }
+
+    /* Input fields */
+    input,
+    textarea,
+    select {
+      background-color: var(--input-bg-color);
+      border-radius: var(--input-border-radius);
+      border-width: var(--input-border-width);
+      border-style: solid;
+      padding: var(--input-padding);
+      font-size: var(--input-font-size);
+      font-weight: var(--input-font-weight);
+      border-color: #ccc; /* fallback */
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent-color-1); /* optional focus accent */
+    }
 
     /* Labels */
-    --label-text-color: {{ settings.label_text_color }};
-    --label-font-size: {{ settings.label_font_size }}px;
-    --label-font-weight: {{ settings.label_font_weight }};
-    --label-margin-bottom: {{ settings.label_margin_bottom }}px;
-  }
+    label {
+      color: var(--label-text-color);
+      font-size: var(--label-font-size);
+      font-weight: var(--label-font-weight);
+      margin-bottom: var(--label-margin-bottom);
+      display: block;
+    }
 
-  /* Backgrounds */
-  .bg-primary { background-color: var(--background-color); }
-  .bg-secondary { background-color: var(--background-color-2); }
+    .visually-hidden {
+      display: none;
+      visibility: hidden;
+      opacity: 0;
+    }
 
-  /* Accents */
-  .bg-accent-1 { background-color: var(--accent-color-1); }
-  .bg-accent-2 { background-color: var(--accent-color-2); }
-  .bg-accent-3 { background-color: var(--accent-color-3); }
-  .bg-accent-4 { background-color: var(--accent-color-4); }
-  .bg-accent-5 { background-color: var(--accent-color-5); }
+    {% comment %} Header {% endcomment %}
+    .shopify-section-header a,
+    .shopify-section-header img {
+      display: block;
+    }
 
-  .text-accent-1 { color: var(--accent-color-1); }
-  .text-accent-2 { color: var(--accent-color-2); }
-  .text-accent-3 { color: var(--accent-color-3); }
-  .text-accent-4 { color: var(--accent-color-4); }
-  .text-accent-5 { color: var(--accent-color-5); }
+    .header-container {
+      grid-template-columns: repeat(12, 1fr); /* 12 equal columns */
+    }
 
-  /* Typography */
-  .text-heading { color: var(--heading-color); }
-  .text-body { color: var(--text-color); }
-  .text-link { color: var(--link-color); }
-  .text-link:hover { color: var(--link-hover-color); }
+    .header-container .account-wrapper,
+    .header-container .logo {
+      grid-column: span 3;
+    }
 
-  /* Base button style */
-  .btn {
-    display: inline-block;
-    text-align: center;
-    cursor: pointer;
-    padding: 0.5em 1em;
-    border-style: solid;
-    transition: all 0.2s ease;
-  }
+    .header-container .search-container {
+      position: relative;
+      grid-column: span 6;
+    }
 
-  /* Button 1 */
-  .btn-1 {
-    background-color: var(--btn1-bg);
-    color: var(--btn1-text);
-    border-color: var(--btn1-border);
-    border-radius: var(--btn1-radius);
-    border-width: var(--btn1-border-width);
-    font-size: var(--btn1-font-size);
-    font-weight: var(--btn1-font-weight);
-  }
-  .btn-1:hover {
-    background-color: var(--btn1-hover-bg);
-    color: var(--btn1-hover-text);
-    border-color: var(--btn1-hover-border);
-  }
+    .header-container .site-nav {
+      grid-column: span 12;
+    }
 
-  /* Button 2 */
-    .btn-2 {
-    background-color: var(--btn2-bg);
-    color: var(--btn2-text);
-    border-color: var(--btn2-border);
-    border-radius: var(--btn2-radius);
-    border-width: var(--btn2-border-width);
-    font-size: var(--btn2-font-size);
-    font-weight: var(--btn2-font-weight);
-  }
-  .btn-2:hover {
-    background-color: var(--btn2-hover-bg);
-    color: var(--btn2-hover-text);
-    border-color: var(--btn2-hover-border);
-  }
+    .header-container > div {
+      gap: var(--row-gap) var(--column-gap);
+      align-items: center;
+      display: flex;
+    }
 
-  /* Button 3 */
-  .btn-3 {
-    background-color: var(--btn3-bg);
-    color: var(--btn3-text);
-    border-color: var(--btn3-border);
-    border-radius: var(--btn3-radius);
-    border-width: var(--btn3-border-width);
-    font-size: var(--btn3-font-size);
-    font-weight: var(--btn3-font-weight);
-  }
-  .btn-3:hover {
-    background-color: var(--btn3-hover-bg);
-    color: var(--btn3-hover-text);
-    border-color: var(--btn3-hover-border);
-  }
-  
-  /* Apply CSS Variables to Elements */
-  {{ heading_font }}
-  {{ body_font }}
+    .search-form {
+      width: 100%;
+    }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-  }
+    .account-wrapper {
+      justify-content: right;
+    }
 
-  body {
-    font-family: var(--font-body);
-    font-weight: var(--font-weight-body);
-    font-size: var(--font-size-body);
-  }
+    .account-wrapper .cart {
+      position: relative;
+    }
 
-  a {
-    font-family: var(--font-body);
-    font-weight: var(--font-weight-link);
-    font-size: var(--font-size-link);
-  }
+    .account-wrapper .cart .header__cart-dropdown {
+      background-color: var(--input-bg-color);
+      border-radius: var(--input-border-radius);
+      border-width: var(--input-border-width);
+      border-style: solid;
+      padding: var(--input-padding);
+      font-size: var(--input-font-size);
+      position: absolute;
+      display: none;
+      top: 100%;
+      right: 0;
+    }
 
-  /* Specific heading styles */
-  .page-title { /* or whatever selector you use for page titles */
-    font-size: var(--font-size-page-title);
-    font-weight: var(--font-weight-page-title);
-  }
+    .account-wrapper .cart:hover .header__cart-dropdown {
+      display: block;
+    }
 
-  .section-title { /* or whatever selector you use for section titles */
-    font-size: var(--font-size-section-title);
-    font-weight: var(--font-weight-section-title);
-  }
+    /* Search container */
+    .search-container {
+      {% comment %} margin-top: var(--section-spacing);
+      margin-bottom: var(--section-spacing); {% endcomment %}
+    }
 
-  /* Individual headings */
-  h1 { font-size: var(--font-size-h1); }
-  h2 { font-size: var(--font-size-h2); }
-  h3 { font-size: var(--font-size-h3); }
-  h4 { font-size: var(--font-size-h4); }
-  h5 { font-size: var(--font-size-h5); }
-  h6 { font-size: var(--font-size-h6); }
+    /* Form */
+    .search-form input {
+      width: 100%;
+    }
 
-  /* Page wrapper */
-  .page-wrapper {
-    max-width: var(--page-width);
-    width: 100%;
-    margin: 0 auto;
-    padding-left: var(--page-padding-x);
-    padding-right: var(--page-padding-x);
-  }
+    /* Results Grid */
+    .search-results {
+      margin-top: var(--section-spacing);
+    }
 
-  {% if settings.page_full_width %}
-  .page-wrapper {
-    max-width: 100%;
-    padding-left: var(--page-padding-x);
-    padding-right: var(--page-padding-x);
-  }
-  {% endif %}
+    /* Result Card */
+    .search-result-card {
+      background: var(--background-color-2);
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: box-shadow .2s ease;
+    }
 
-  /* Section spacing */
-  section {
-    margin-bottom: var(--section-spacing);
-  }
+    .search-result-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    }
 
-  /* Grid layout */
-  .grid {
-    display: grid;
-    gap: var(--row-gap) var(--column-gap);
-  }
+    /* Image */
+    .search-result-image img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #eee;
+    }
 
-  /* Input fields */
-  input,
-  textarea,
-  select {
-    background-color: var(--input-bg-color);
-    border-radius: var(--input-border-radius);
-    border-width: var(--input-border-width);
-    border-style: solid;
-    padding: var(--input-padding);
-    font-size: var(--input-font-size);
-    font-weight: var(--input-font-weight);
-    border-color: #ccc; /* fallback */
-    outline: none;
-    transition: all 0.2s ease;
-  }
+    .placeholder-image {
+      width: 100%;
+      padding-top: 75%;
+    }
 
-  input:focus,
-  textarea:focus,
-  select:focus {
-    border-color: var(--accent-color-1); /* optional focus accent */
-  }
+    /* Content */
+    .search-result-content {
+      padding: 1rem;
+    }
 
-  /* Labels */
-  label {
-    color: var(--label-text-color);
-    font-size: var(--label-font-size);
-    font-weight: var(--label-font-weight);
-    margin-bottom: var(--label-margin-bottom);
-    display: block;
-  }
+    .search-result-title {
+      font-size: var(--font-size-h4);
+      font-weight: var(--font-weight-section-title);
+      margin: 0 0 .5rem;
+    }
 
-  .visually-hidden {
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-  }
+    .search-result-snippet {
+      font-size: var(--font-size-body);
+      color: var(--text-color);
+      margin-top: .5rem;
+    }
 
-  /* Search container */
-  .search-container {
-    margin-top: var(--section-spacing);
-    margin-bottom: var(--section-spacing);
-  }
+    .search-result-price {
+      margin-top: .5rem;
+      font-weight: bold;
+    }
 
-  /* Form */
-  .search-form input {
-    width: 100%;
-  }
+    /* Pagination */
+    .search-pagination {
+      margin-top: var(--section-spacing);
+      text-align: center;
+    }
 
-  /* Results Grid */
-  .search-results {
-    margin-top: var(--section-spacing);
-  }
+    /* Container */
+    #live-search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--background-color);
+      border-radius: 6px;
+      border: 1px solid #eee;
+      margin-top: 0;
+      z-index: 1000;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+      transition: all 0.2s easy-in;
+      {% comment %} display: none; {% endcomment %}
+    }
 
-  /* Result Card */
-  .search-result-card {
-    background: var(--background-color-2);
-    border: 1px solid #eee;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: box-shadow .2s ease;
-  }
+    .search-container:hover #live-search-results:has(*) {
+      padding: 0.5rem 0;
+      display: block;
+      margin-top: -8px;
+    }
 
-  .search-result-card:hover {
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  }
+    /* Suggestion groups */
+    .search-suggest-group {
+      padding: 0.5rem 1rem;
+    }
 
-  /* Image */
-  .search-result-image img {
-    width: 100%;
-    display: block;
-    border-bottom: 1px solid #eee;
-  }
+    .search-suggest-group h4 {
+      font-size: var(--font-size-h6);
+      font-weight: var(--font-weight-section-title);
+      margin: 0 0 0.5rem;
+      color: var(--heading-color);
+    }
 
-  .placeholder-image {
-    width: 100%;
-    padding-top: 75%;
-  }
+    /* Suggestion list */
+    .search-suggest-group ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* Content */
-  .search-result-content {
-    padding: 1rem;
-  }
+    .search-suggest-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: background 0.2s ease;
+    }
 
-  .search-result-title {
-    font-size: var(--font-size-h4);
-    font-weight: var(--font-weight-section-title);
-    margin: 0 0 .5rem;
-  }
+    .search-suggest-item:hover {
+      background: var(--background-color-2);
+      color: var(--link-hover-color);
+    }
 
-  .search-result-snippet {
-    font-size: var(--font-size-body);
-    color: var(--text-color);
-    margin-top: .5rem;
-  }
+    /* Product images */
+    .search-suggest-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #eee;
+    }
 
-  .search-result-price {
-    margin-top: .5rem;
-    font-weight: bold;
-  }
+    /* Empty state */
+    #live-search-results p {
+      padding: 1rem;
+      margin: 0;
+      color: var(--text-color);
+      font-size: var(--font-size-body);
+    }
 
-  /* Pagination */
-  .search-pagination {
-    margin-top: var(--section-spacing);
-    text-align: center;
-  }
+    .search-container.page-wrapper {
+        position: relative;
+    }
 
-  /* Container */
-  #live-search-results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
+
+    {% comment %} Navigation {% endcomment %}
+
+    /* ================================
+     Navigation Menu Base Styles
+  ================================ */
+  .site-nav {
     background: var(--background-color);
-    border: 1px solid #eee;
-    border-radius: 6px;
-    margin-top: 4px;
-    padding: 0.5rem 0;
-    z-index: 1000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    max-height: 400px;
-    overflow-y: auto;
-    {% comment %} display: none; {% endcomment %}
+    font-family: var(--font-body);
   }
 
-  /* Suggestion groups */
-  .search-suggest-group {
-    padding: 0.5rem 1rem;
-  }
-
-  .search-suggest-group h4 {
-    font-size: var(--font-size-h6);
-    font-weight: var(--font-weight-section-title);
-    margin: 0 0 0.5rem;
-    color: var(--heading-color);
-  }
-
-  /* Suggestion list */
-  .search-suggest-group ul {
+  .site-nav__menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem; /* spacing between items */
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  .search-suggest-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: background 0.2s ease;
+  /* Menu Items */
+  .site-nav__item {
+    position: relative;
   }
 
-  .search-suggest-item:hover {
-    background: var(--background-color-2);
+  .site-nav__link {
+    display: inline-block;
+    padding: 0.75rem 0.5rem;
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: var(--font-weight-link);
+    font-size: var(--font-size-link);
+    transition: color 0.2s ease;
+  }
+
+  .site-nav__link:hover,
+  .site-nav__item.active > .site-nav__link {
     color: var(--link-hover-color);
   }
 
-  /* Product images */
-  .search-suggest-item img {
-    width: 40px;
-    height: 40px;
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #eee;
-  }
-
-  /* Empty state */
-  #live-search-results p {
-    padding: 1rem;
+  /* ================================
+     Dropdown (Submenu)
+  ================================ */
+  .site-nav__submenu,
+  .site-nav__sub-submenu {
+    display: none;
+    position: absolute;
+    top: 100%; /* push below parent */
+    left: 0;
+    background: var(--background-color-2);
+    list-style: none;
     margin: 0;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    z-index: 10;
+  }
+
+  .site-nav__submenu-item {
+    position: relative;
+  }
+
+  .site-nav__submenu-link {
+    display: block;
+    padding: 0.5rem 1rem;
     color: var(--text-color);
-    font-size: var(--font-size-body);
+    text-decoration: none;
+    transition: background 0.2s ease;
   }
 
-  .search-container.page-wrapper {
-      position: relative;
+  .site-nav__submenu-link:hover {
+    background: var(--accent-color-1);
+    color: #fff;
   }
 
+  /* ================================
+     Sub-Submenu (third level)
+  ================================ */
+  .site-nav__sub-submenu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%; /* flyout beside parent */
+    background: var(--background-color-2);
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    z-index: 15;
+  }
+
+  .site-nav__sub-submenu li a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background 0.2s ease;
+  }
+
+  .site-nav__sub-submenu li a:hover {
+    background: var(--accent-color-2);
+    color: #fff;
+  }
+
+  /* Show on hover */
+  .site-nav__submenu-item:hover > .site-nav__sub-submenu {
+    display: block;
+  }
+
+  /* ================================
+     Hover Logic
+  ================================ */
+  .site-nav__item:hover > .site-nav__submenu,
+  .site-nav__submenu-item:hover > .site-nav__sub-submenu {
+    display: block;
+  }
+
+  /* ================================
+     Responsive Navigation
+  ================================ */
+  @media (max-width: 768px) {
+    .site-nav__menu {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+    }
+
+    .site-nav__submenu,
+    .site-nav__sub-submenu {
+      position: static;
+      display: none;
+      box-shadow: none;
+      background: var(--background-color);
+      padding-left: 1rem;
+    }
+
+    .site-nav__item:hover > .site-nav__submenu,
+    .site-nav__submenu-item:hover > .site-nav__sub-submenu {
+      display: block;
+    }
+
+    .site-nav__sub-submenu {
+      position: static;
+      display: none;
+      box-shadow: none;
+      padding-left: 1rem;
+      background: var(--background-color);
+    }
+
+    /* Show when parent is hovered (or later, toggled with JS) */
+    .site-nav__submenu-item:hover > .site-nav__sub-submenu {
+      display: block;
+    }
+  }
 </style>

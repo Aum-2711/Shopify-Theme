@@ -1,75 +1,195 @@
-<header>
-    <div class="header-container">
-        <div class="logo" style="text-align: {{ section.settings.logo_position | split: '-' | last }};">
-            {% if settings.logo %}
-                <a href="{{ shop.url }}">
-                    <img
-                    src="{{ settings.logo | img_url: settings.logo_max_width | append: 'px' }}" 
-                    width="{{ settings.logo_max_width | append: 'px' }}" 
-                    alt="{{ shop.name }}"
-                    >
-                </a>
-            {% else %}
-                <h1><a href="{{ shop.url }}">{{ shop.name }}</a></h1>
-            {% endif %}
-        </div>
+<div class="{{ section.settings.custom_background_color }} {{ section.settings.custom_text_color }}">
+  <div class="page-wrapper">
+    <div class="header-container grid ">
+      <div class="logo" style="text-align: {{ section.settings.logo_position | split: '-' | last }};">
+        {% if settings.logo %}
+          <a href="{{ shop.url }}">
+            <img
+              src="{{ settings.logo | img_url: settings.logo_max_width | append: 'px' }}"
+              width="{{ settings.logo_max_width | append: 'px' }}"
+              alt="{{ shop.name }}"
+            >
+          </a>
+        {% else %}
+          <h1>
+            <a href="{{ shop.url }}">{{ shop.name }}</a>
+          </h1>
+        {% endif %}
+      </div>
 
-        {% render 'search-bar' %}
+      {% render 'search-bar' %}
 
+      <div class="account-wrapper">
         <div class="customer">
-            {% if shop.customer_accounts_enabled %}
-                <div class="header__customer">
-                    {% if customer %}
-                    <a href="/account" class="header__account-link">
-                        <svg class="icon icon-account" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path d="M12 12c2.67 0 4.8-2.13 4.8-4.8S14.67 2.4 12 2.4 7.2 4.53 7.2 7.2 9.33 12 12 12zM12 14.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-                        </svg>
-                        <span class="header__account-text">Account</span>
-                    </a>
-                    <a href="/account/logout" class="header__logout-link">Logout</a>
-                    {% else %}
-                    <a href="/account/login" class="header__login-link">
-                        <svg class="icon icon-login" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                        <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM20 3H4c-1.11 0-2 .9-2 2v4h2V5h16v14H4v-4H2v4c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2z"/>
-                        </svg>
-                        <span class="header__login-text">Login</span>
-                    </a>
-                    {% endif %}
-                </div>
-            {% endif %}
+          {% if shop.customer_accounts_enabled %}
+            <div class="header__customer">
+              {% if customer %}
+                <a href="/account" class="header__account-link">
+                  <svg class="icon icon-account" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M12 12c2.67 0 4.8-2.13 4.8-4.8S14.67 2.4 12 2.4 7.2 4.53 7.2 7.2 9.33 12 12 12zM12 14.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                  </svg>
+                  <span class="header__account-text">Account</span>
+                </a>
+                <a href="/account/logout" class="header__logout-link">Logout</a>
+              {% else %}
+                <a href="/account/login" class="header__login-link">
+                  <svg class="icon icon-login" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM20 3H4c-1.11 0-2 .9-2 2v4h2V5h16v14H4v-4H2v4c0 1.1.89 2 2 2h16c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2z"/>
+                  </svg>
+                  <span class="header__login-text">Login</span>
+                </a>
+              {% endif %}
+            </div>
+          {% endif %}
         </div>
+        <div class="cart">
+          <div class="cart">
+            <div class="header__cart">
+              <a href="/cart" class="header__cart-link">
+                <svg class="icon icon-cart" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                  <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10
+                          0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16
+                          14.26l.84-2h8.19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1
+                          1 0 0 0 20.58 4H6.21l-.94-2H1v2h3l3.6
+                          7.59-1.35 2.44C5.16 14.37 6.02 16 7.16
+                          16H19v-2H7.42c-.14 0-.25-.11-.26-.25z"/>
+                </svg>
+                <span class="header__cart-text">Cart</span>
+                <span class="header__cart-count">
+                  {{ cart.item_count }}
+                </span>
+              </a>
 
-        <div class="cart">  
-            <span>Count: 0</span>
-        </div>
-        <nav class="main-menu" data-menu-type="{{ section.settings.menu_type_desktop }}">
-            {% if section.settings.menu %}
-                {% assign main_menu = linklists[section.settings.menu] %}
-                <ul>
-                    {% for link in main_menu.links %}
-                        <li>
-                            <a href="{{ link.url }}">{{ link.title }}</a>
-                            {% if link.links.size > 0 and section.settings.menu_type_desktop != 'drawer' %}
-                                <ul class="sub-menu">
-                                    {% for sublink in link.links %}
-                                        <li><a href="{{ sublink.url }}">{{ sublink.title }}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                        </li>
+              <!-- Dropdown -->
+              {% if cart.item_count > 0 %}
+                <div class="header__cart-dropdown">
+                  <ul class="cart-items">
+                    {% for item in cart.items %}
+                      <li class="cart-item" data-line="{{ forloop.index }}">
+                        <a href="{{ item.url }}" class="cart-item__image">
+                          <img src="{{ item.image | img_url: '100x100' }}" alt="{{ item.title }}">
+                        </a>
+                        <div class="cart-item__details">
+                          <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+
+                          <div class="cart-item__qty">
+                            <input
+                              type="number"
+                              min="1"
+                              value="{{ item.quantity }}"
+                              class="cart-qty-input"
+                              data-line="{{ forloop.index }}"
+                            >
+                            <button class="cart-remove-btn" data-line="{{ forloop.index }}">✕</button>
+                          </div>
+
+                          <div class="cart-item__price">
+                            {{ item.final_line_price | money }}
+                          </div>
+                        </div>
+                      </li>
                     {% endfor %}
-                </ul>
-            {% endif %}
-        </nav>
-</header>
+                  </ul>
 
+                  <div class="cart-summary">
+                    <span>Total: {{ cart.total_price | money }}</span>
+                    <a href="/checkout" class="checkout-btn">Checkout</a>
+                  </div>
+                </div>
+              {% else %}
+                <div class="header__cart-dropdown">
+                  <p>Your cart is empty.</p>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav class="site-nav" role="navigation">
+    <div class="page-wrapper">
+      <ul class="site-nav__menu">
+        {% assign nav_menu = section.settings.nav_menu %}
+        {% for link in linklists[nav_menu].links %}
+          <li class="site-nav__item {% if link.active %}active{% endif %}">
+            <a href="{{ link.url }}" class="site-nav__link">
+              {{ link.title }}
+            </a>
+
+            {% if link.links != blank %}
+              <ul class="site-nav__submenu">
+                {% for child_link in link.links %}
+                  <li class="site-nav__submenu-item">
+                    <a href="{{ child_link.url }}" class="site-nav__submenu-link">
+                      {{ child_link.title }}
+                    </a>
+
+                    {% if child_link.links != blank %}
+                      <ul class="site-nav__sub-submenu">
+                        {% for grandchild_link in child_link.links %}
+                          <li>
+                            <a href="{{ grandchild_link.url }}">
+                              {{ grandchild_link.title }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </nav>
+</div>
 {% schema %}
 {
   "name": "Header",
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
-    
+    {
+      "type": "link_list",
+      "id": "nav_menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "select",
+      "id": "custom_text_color",
+      "label": "Select Text Color",
+      "options": [
+        { "value": "text-heading", "label": "Heading Color" },
+        { "value": "text-body", "label": "Body Text Color" },
+        { "value": "text-link", "label": "Link Color" },
+        { "value": "text-link-hover", "label": "Link Hover Color" },
+        { "value": "text-accent-1", "label": "Accent Color 1" },
+        { "value": "text-accent-2", "label": "Accent Color 2" },
+        { "value": "text-accent-3", "label": "Accent Color 3" },
+        { "value": "text-accent-4", "label": "Accent Color 4" },
+        { "value": "text-accent-5", "label": "Accent Color 5" }
+      ],
+      "default": "text-body"
+    },
+    {
+      "type": "select",
+      "id": "custom_background_color",
+      "label": "Select Background Color",
+      "options": [
+        { "value": "bg-primary", "label": "Background Primary" },
+        { "value": "bg-secondary", "label": "Background Secondary" },
+        { "value": "bg-accent-1", "label": "Accent Background 1" },
+        { "value": "bg-accent-2", "label": "Accent Background 2" },
+        { "value": "bg-accent-3", "label": "Accent Background 3" },
+        { "value": "bg-accent-4", "label": "Accent Background 4" },
+        { "value": "bg-accent-5", "label": "Accent Background 5" }
+      ],
+      "default": "bg-primary"
+    }
   ],
   "blocks": [
     {

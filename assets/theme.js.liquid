@@ -80,3 +80,125 @@ document.addEventListener("DOMContentLoaded", function() {
     resultsContainer.innerHTML = ""; // optional: clear live results
   });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+  const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+  function updateCartDropdown() {
+    fetch("/cart.js")
+      .then(r => r.json())
+      .then(cart => {
+        // Update cart count
+        const cartCount = document.querySelector(".header__cart-count");
+        if (cartCount) cartCount.textContent = cart.item_count;
+
+        // Update dropdown
+        const dropdown = document.querySelector(".header__cart-dropdown");
+        if (!dropdown) return;
+
+        if (cart.item_count === 0) {
+          dropdown.innerHTML = `<p>Your cart is empty.</p>`;
+          return;
+        }
+
+        let itemsHtml = cart.items.map((item, index) => `
+          <li class="cart-item" data-line="${index + 1}">
+            <a href="${item.url}" class="cart-item__image">
+              <img src="${item.image}" alt="${item.title}" heaight="200px" width="200px">
+            </a>
+            <div class="cart-item__details">
+              <a href="${item.url}" class="cart-item__title">${item.product_title}</a>
+              
+              <div class="cart-item__qty">
+                <input 
+                  type="number" 
+                  min="1" 
+                  value="${item.quantity}" 
+                  class="cart-qty-input" 
+                  data-line="${index + 1}"
+                >
+                <button class="cart-remove-btn" data-line="${index + 1}">✕</button>
+              </div>
+              
+              <div class="cart-item__price">
+                ${(item.final_line_price / 100).toFixed(2)} ${Shopify.currency.active}
+              </div>
+            </div>
+          </li>
+        `).join("");
+
+        dropdown.innerHTML = `
+          <ul class="cart-items">${itemsHtml}</ul>
+          <div class="cart-summary">
+            <span>Total: ${(cart.total_price / 100).toFixed(2)} ${Shopify.currency.active}</span>
+            <a href="/checkout" class="checkout-btn">Checkout</a>
+          </div>
+        `;
+
+        // Re-bind events for qty + remove
+        bindCartEvents();
+      });
+  }
+
+  function bindCartEvents() {
+    document.querySelectorAll(".cart-qty-input").forEach(input => {
+      input.addEventListener("change", function() {
+        const line = this.dataset.line;
+        const quantity = this.value;
+
+        fetch("/cart/change.js", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ line: line, quantity: quantity })
+        })
+        .then(() => updateCartDropdown());
+      });
+    });
+
+    document.querySelectorAll(".cart-remove-btn").forEach(btn => {
+      btn.addEventListener("click", function(e) {
+        e.preventDefault();
+        const line = this.dataset.line;
+
+        fetch("/cart/change.js", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({ line: line, quantity: 0 })
+        })
+        .then(() => updateCartDropdown());
+      });
+    });
+  }
+
+  // Add to cart
+  buttons.forEach(button => {
+    button.addEventListener("click", function(e) {
+      e.preventDefault();
+
+      const variantId = this.getAttribute("data-variant-id");
+
+      fetch("/cart/add.js", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          id: variantId,
+          quantity: 1
+        })
+      })
+      .then(res => res.json())
+      .then(() => {
+        updateCartDropdown(); // refresh cart without reload
+      })
+      .catch(err => {
+        console.error("Error adding to cart:", err);
+      });
+    });
+  });
+
+  // First bind events if dropdown already has items
+  bindCartEvents();
+});
+
