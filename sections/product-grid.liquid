@@ -1,18 +1,25 @@
 {% comment %}
   Product Grid Section - Shows all available products
 {% endcomment %}
-<section class="product-grid-section page-width">
+<section class="product-grid-section page-width page-wrapper">
   <div class="section-header">
     <h2>{{ section.settings.heading }}</h2>
   </div>
 
   <div class="product-grid">
-    {% paginate collections.all.products by 12 %}
+    {% paginate collections.all.products by 6 %}
       {% for product in collections.all.products %}
         <div class="product-card">
           <a href="{{ product.url }}" class="product-card__image">
             {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '400x' }}" alt="{{ product.featured_image.alt | escape }}" height="200px" width="200px">
+              <img 
+                src="{{ product.featured_image | img_url: '400x' }}" 
+                alt="{{ product.featured_image.alt | escape }}" 
+                height="200" 
+                width="200"
+                loading="lazy"
+                decoding="async"
+              >
             {% else %}
               <div class="no-image">No image</div>
             {% endif %}
