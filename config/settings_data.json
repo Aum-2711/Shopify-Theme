@@ -9,9 +9,9 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Black_and_White_Simple_Circle_Badge_Fashion_Logo-removebg-preview.png",
-    "logo_max_width": 100,
-    "favicon": "shopify://shop_images/Black_and_White_Simple_Circle_Badge_Fashion_Logo-removebg-preview.png",
+    "logo": "shopify://shop_images/card-product-logo_956cc1f1-2682-4b0b-80de-1a8334578b3a.png",
+    "logo_max_width": 160,
+    "favicon": "shopify://shop_images/card-product-logo_1_db472abc-bbda-41f7-ae79-4c16223aa49a.png",
     "background_color": "#a13200",
     "link_color": "#f5f5f5",
     "link_hover_color": "#ffffff",
