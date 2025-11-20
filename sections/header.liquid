@@ -1,4 +1,4 @@
-<div class="{{ section.settings.custom_background_color }} {{ section.settings.custom_text_color }}">
+<div class="{{ section.settings.header_background_color }} {{ section.settings.header_text_color }}">
   <div class="page-wrapper">
     <div class="header-container grid">
       <div class="logo" style="text-align: {{ section.settings.logo_position | split: '-' | last }};">
@@ -153,14 +153,8 @@
   "max_blocks": 3,
   "settings": [
     {
-      "type": "link_list",
-      "id": "nav_menu",
-      "label": "Navigation menu",
-      "default": "main-menu"
-    },
-    {
       "type": "select",
-      "id": "custom_text_color",
+      "id": "header_text_color",
       "label": "Select Text Color",
       "options": [
         { "value": "text-heading", "label": "Heading Color" },
@@ -177,7 +171,49 @@
     },
     {
       "type": "select",
-      "id": "custom_background_color",
+      "id": "header_background_color",
+      "label": "Select Background Color",
+      "options": [
+        { "value": "bg-primary", "label": "Background Primary" },
+        { "value": "bg-secondary", "label": "Background Secondary" },
+        { "value": "bg-accent-1", "label": "Accent Background 1" },
+        { "value": "bg-accent-2", "label": "Accent Background 2" },
+        { "value": "bg-accent-3", "label": "Accent Background 3" },
+        { "value": "bg-accent-4", "label": "Accent Background 4" },
+        { "value": "bg-accent-5", "label": "Accent Background 5" }
+      ],
+      "default": "bg-primary"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "nav_menu",
+      "label": "Navigation menu",
+      "default": "main-menu"
+    },
+        {
+      "type": "select",
+      "id": "nav_text_color",
+      "label": "Select Text Color",
+      "options": [
+        { "value": "text-heading", "label": "Heading Color" },
+        { "value": "text-body", "label": "Body Text Color" },
+        { "value": "text-link", "label": "Link Color" },
+        { "value": "text-link-hover", "label": "Link Hover Color" },
+        { "value": "text-accent-1", "label": "Accent Color 1" },
+        { "value": "text-accent-2", "label": "Accent Color 2" },
+        { "value": "text-accent-3", "label": "Accent Color 3" },
+        { "value": "text-accent-4", "label": "Accent Color 4" },
+        { "value": "text-accent-5", "label": "Accent Color 5" }
+      ],
+      "default": "text-body"
+    },
+    {
+      "type": "select",
+      "id": "nav_background_color",
       "label": "Select Background Color",
       "options": [
         { "value": "bg-primary", "label": "Background Primary" },
