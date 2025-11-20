@@ -9,14 +9,15 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/card-product-logo_956cc1f1-2682-4b0b-80de-1a8334578b3a.png",
+    "logo": "shopify://shop_images/card-product-logo_1_27660f78-b125-4ba4-9ed9-453ebecd921d.svg",
     "logo_max_width": 160,
-    "favicon": "shopify://shop_images/card-product-logo_1_db472abc-bbda-41f7-ae79-4c16223aa49a.png",
+    "favicon": "shopify://shop_images/card-product-logo_956cc1f1-2682-4b0b-80de-1a8334578b3a_1_1.svg",
     "background_color": "#a13200",
     "accent_color4": "#000000",
     "accent_color5": "#ffffff",
     "link_color": "#f5f5f5",
     "link_hover_color": "#ffffff",
+    "button1_font_weight": "400",
     "use_custom_heading_font": true,
     "custom_heading_font_cdn": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap\" rel=\"stylesheet\">",
     "custom_heading_font_family": "\"Permanent Marker\", cursive",
@@ -24,6 +25,11 @@
     "custom_body_font_cdn": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Pacifico&display=swap\" rel=\"stylesheet\">",
     "custom_body_font_family": "\"Pacifico\", cursive",
     "page_width": 1600,
+    "card_style": "shadow",
+    "card_border_radius": 0,
+    "image_ratio": "adapt",
+    "image_hover_effect": true,
+    "title_alignment": "left",
     "sections": {
       "header": {
         "type": "header",
