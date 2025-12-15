@@ -1,0 +1,99 @@
+{% comment %}
+--------------------------------------------------------------------------------
+Universal Swiper JS Initializer
+Requires: swiper-bundle.min.js loaded in theme
+--------------------------------------------------------------------------------
+{% endcomment %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const swiperEl = document.querySelector('{{ selector }}');
+    if (!swiperEl) return;
+
+    const swiper = new Swiper('{{ selector }}', {
+      // Core
+      direction: '{{ direction | default: 'horizontal' }}',
+      speed: {{ speed | default: 500 }},
+      loop: {{ loop | default: false }},
+      slidesPerView: {{ slides_per_view | default: 1 }},
+      spaceBetween: {{ space_between | default: 0 }},
+      centeredSlides: {{ centered_slides | default: false }},
+      grabCursor: {{ grab_cursor | default: true }},
+      watchOverflow: {{ watch_overflow | default: true }},
+      freeMode: {{ free_mode | default: false }},
+      effect: '{{ effect | default: 'slide' }}',
+
+      // Autoplay
+      autoplay: {{ autoplay | default: false }} ? {
+        delay: {{ autoplay_delay | default: 3000 }},
+        disableOnInteraction: false,
+        pauseOnMouseEnter: {{ pause_on_hover | default: true }}
+      } : false,
+
+      // Pagination
+      pagination: {{ pagination | default: false }} ? {
+        el: '{{ selector }} .swiper-pagination',
+        clickable: true,
+        type: '{{ pagination_type | default: 'bullets' }}'
+      } : false,
+
+      // Navigation
+      navigation: {{ navigation | default: false }} ? {
+        nextEl: '{{ selector }} .swiper-button-next',
+        prevEl: '{{ selector }} .swiper-button-prev'
+      } : false,
+
+      // Scrollbar
+      scrollbar: {{ scrollbar | default: false }} ? {
+        el: '{{ selector }} .swiper-scrollbar',
+        draggable: true
+      } : false,
+
+      // Input
+      keyboard: {
+        enabled: {{ keyboard | default: true }},
+        onlyInViewport: true
+      },
+
+      mousewheel: {{ mousewheel | default: false }},
+
+      // Lazy loading
+      lazy: {{ lazy | default: false }} ? {
+        loadPrevNext: true,
+        loadOnTransitionStart: true
+      } : false,
+
+      preloadImages: {{ preload_images | default: true }},
+
+      // Breakpoints
+      breakpoints: {{ breakpoints | default: true }} ? {
+        480: {
+          slidesPerView: {{ slides_per_view_480 | default: 1 }},
+          spaceBetween: {{ space_between_480 | default: space_between | default: 8 }}
+        },
+        768: {
+          slidesPerView: {{ slides_per_view_768 | default: 2 }},
+          spaceBetween: {{ space_between_768 | default: space_between | default: 12 }}
+        },
+        1024: {
+          slidesPerView: {{ slides_per_view_1024 | default: 3 }},
+          spaceBetween: {{ space_between_1024 | default: space_between | default: 16 }}
+        },
+        1440: {
+          slidesPerView: {{ slides_per_view_1440 | default: 4 }},
+          spaceBetween: {{ space_between_1440 | default: space_between | default: 20 }}
+        }
+      } : {},
+
+      // Events
+      on: {
+        init: function () {
+          console.log('Swiper initialized:', this);
+        },
+        slideChange: function () {
+          // slide changed
+        }
+      }
+    });
+  });
+</script>

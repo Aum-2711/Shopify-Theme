@@ -1,0 +1,144 @@
+{% comment %}
+--------------------------------------------------------------------------------
+Announcement Bar – Swiper Slider
+--------------------------------------------------------------------------------
+{% endcomment %}
+
+{% if section.blocks.size > 0 %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      background: {{ section.settings.background }};
+      color: {{ section.settings.text_color }};
+    }
+
+    .announcement-swiper {
+      width: 100%;
+    }
+
+    .announcement-slide {
+      text-align: center;
+      font-size: 14px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+    }
+
+    .announcement-slide a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .announcement-swiper .swiper-pagination {
+      position: relative;
+      margin-top: 6px;
+    }
+  </style>
+
+  <div class="announcement-swiper swiper">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide announcement-slide" {{ block.shopify_attributes }}>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}">
+              {{ block.settings.text }}
+            </a>
+          {% else %}
+            {{ block.settings.text }}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_dots %}
+      <div class="swiper-pagination"></div>
+    {% endif %}
+  </div>
+
+{% render 'swiper-init',
+  selector: '.announcement-swiper',
+  slides_per_view: 1,
+  space_between: 12,
+  slides_per_view_480: 1,
+  slides_per_view_768: 2,
+  slides_per_view_1024: 3,
+  slides_per_view_1440: 4,
+  loop: true,
+  autoplay: true,
+  pagination: true,
+  navigation: false
+%}
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement bar (Swiper)",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Autoplay speed (ms)",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 3000
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show pagination dots",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping on all orders"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Announcement bar slider",
+      "blocks": [
+        { "type": "announcement" },
+        { "type": "announcement" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -17,6 +17,8 @@
   
   {% include 'style-tags' %}
   {% include 'script-tags' %}
+  {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+
   
   {{ content_for_header }}
   
@@ -34,5 +36,7 @@
     <footer>
       {%- section 'footer' -%}
     </footer>
+    
+    {{ 'swiper-bundle.min.js' | asset_url | script_tag }}
 </body>
 </html>
