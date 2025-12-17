@@ -20,9 +20,41 @@
         "nav_text_color": "text-body",
         "nav_background_color": "bg-primary"
       }
+    },
+    "announcement_bar_swiper_8bTmEX": {
+      "type": "announcement-bar-swiper",
+      "blocks": {
+        "announcement_HGJL4T": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on all orders",
+            "link": ""
+          }
+        },
+        "announcement_cxBwDy": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on all orders",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_HGJL4T",
+        "announcement_cxBwDy"
+      ],
+      "name": "Announcement bar slider",
+      "settings": {
+        "background": "#f0f3f2",
+        "text_color": "#000000",
+        "autoplay": true,
+        "autoplay_speed": 3000,
+        "show_dots": false
+      }
     }
   },
   "order": [
+    "announcement_bar_swiper_8bTmEX",
     "header-default"
   ]
 }
