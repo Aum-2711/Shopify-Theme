@@ -47,7 +47,7 @@
         "text_color": "#000000",
         "autoplay": true,
         "autoplay_speed": 3000,
-        "show_dots": true
+        "show_dots": false
       }
     },
     "header-default": {
