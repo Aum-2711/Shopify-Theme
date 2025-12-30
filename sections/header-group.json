@@ -34,12 +34,20 @@
             "text": "Free shipping on all orders",
             "link": ""
           }
+        },
+        "announcement_8xmXYe": {
+          "type": "announcement",
+          "settings": {
+            "text": "Free shipping on all orders",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "announcement_QDBTWY",
         "announcement_HGJL4T",
-        "announcement_cxBwDy"
+        "announcement_cxBwDy",
+        "announcement_8xmXYe"
       ],
       "name": "Announcement bar slider",
       "settings": {
