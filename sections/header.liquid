@@ -1,4 +1,4 @@
-<div class="{{ section.settings.header_background_color }} {{ section.settings.header_text_color }}">
+<div class="{{ section.settings.header_background_color }} {{ section.settings.header_text_color }} {{ section.settings.header_border_color }}">
   <div class="page-wrapper">
     <div class="header-container grid">
       <div class="logo" style="text-align: {{ section.settings.logo_position | split: '-' | last }};">
@@ -183,6 +183,21 @@
         { "value": "bg-accent-5", "label": "Accent Background 5" }
       ],
       "default": "bg-primary"
+    },
+    {
+      "type": "select",
+      "id": "header_border_color",
+      "label": "Select Border Color",
+      "options": [
+        { "value": "bb-primary", "label": "Background Primary" },
+        { "value": "bb-secondary", "label": "Background Secondary" },
+        { "value": "bb-accent-1", "label": "Accent Background 1" },
+        { "value": "bb-accent-2", "label": "Accent Background 2" },
+        { "value": "bb-accent-3", "label": "Accent Background 3" },
+        { "value": "bb-accent-4", "label": "Accent Background 4" },
+        { "value": "bb-accent-5", "label": "Accent Background 5" }
+      ],
+      "default": "bb-accent-1"
     },
     {
       "type": "header",

@@ -1,99 +1,229 @@
 {% comment %}
 --------------------------------------------------------------------------------
-Announcement Bar – Swiper Slider
+Announcement Bar – Native Fade Slider (Theme Class Integrated)
 --------------------------------------------------------------------------------
 {% endcomment %}
 
 {% if section.blocks.size > 0 %}
   <style>
+    /* Section Specific Layout Styles */
     #shopify-section-{{ section.id }} {
-      background: {{ section.settings.background }};
-      color: {{ section.settings.text_color }};
+      overflow: hidden;
     }
 
-    .announcement-swiper {
+    .ann-container {
+      display: flex;
+      justify-content: var(--ann-align, center);
+      align-items: center;
+      position: relative;
+      padding-bottom: 2px;
+      padding-top: 2px;
+      min-height: 30px;
       width: 100%;
     }
 
-    .announcement-slide {
-      text-align: center;
-      font-size: 14px;
-      padding: 10px 16px;
+    /* Desktop/Grid View */
+    @media screen and (min-width: {{ section.settings.breakpoint | plus: 1 }}px) {
+      .ann-container {
+        display: flex;
+        gap: 20px;
+      }
+      .ann-item {
+        position: relative !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: flex;
+        justify-content: var(--ann-align, center);
+      }
+    }
+
+    /* Mobile/Slider View */
+    @media screen and (max-width: {{ section.settings.breakpoint }}px) {
+      .ann-item {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: var(--ann-align, center);
+        width: 100%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease-in-out;
+        padding: 0 20px;
+      }
+      .ann-item.is-active {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .ann-content {
+      line-height: calc({{ section.settings.text_size }}px + 4px);
+      font-size: {{ section.settings.text_size }}px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 500;
+      color: inherit;
+    }
+
+    .ann-icon {
+      margin-right: 8px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 40px;
+      color: currentColor;
     }
-
-    .announcement-slide a {
-      color: inherit;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .announcement-swiper .swiper-pagination {
-      position: relative;
-      margin-top: 6px;
+    
+    .ann-icon span {
+      width: calc({{ section.settings.text_size }}px + 4px);
+      height: calc({{ section.settings.text_size }}px + 4px);
+      fill: currentColor;
     }
   </style>
 
-  <div class="announcement-swiper swiper">
-    <div class="swiper-wrapper">
-      {% for block in section.blocks %}
-        <div class="swiper-slide announcement-slide" {{ block.shopify_attributes }}>
-          {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}">
-              {{ block.settings.text }}
-            </a>
-          {% else %}
-            {{ block.settings.text }}
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
+  {%- capture alignment_style -%}
+    {%- if section.settings.alignment == 'left' -%}flex-start
+    {%- elsif section.settings.alignment == 'right' -%}flex-end
+    {%- else -%}center
+    {%- endif -%}
+  {%- endcapture -%}
 
-    {% if section.settings.show_dots %}
-      <div class="swiper-pagination"></div>
-    {% endif %}
+  <div class="{{ section.settings.header_background_color }} {{ section.settings.header_text_color }}" style="--ann-align: {{ alignment_style }};">
+    <div class="page-wrapper">
+      <div class="ann-container" id="AnnFade-{{ section.id }}">
+        {% for block in section.blocks %}
+          <div class="ann-item {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="ann-content">
+            {% else %}
+              <div class="ann-content">
+            {% endif %}
+
+              {% if block.settings.icon != 'none' %}
+                {% render 'icon', icon: block.settings.icon, class: "ann-icon" size: section.settings.text_size %}
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <span>{{ block.settings.text }}</span>
+              {% endif %}
+    
+            {% if block.settings.link != blank %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
   </div>
 
-{% render 'swiper-init',
-  selector: '.announcement-swiper',
-  slides_per_view: 1,
-  space_between: 12,
-  slides_per_view_480: 1,
-  slides_per_view_768: 2,
-  slides_per_view_1024: 3,
-  slides_per_view_1440: 4,
-  loop: true,
-  autoplay: true,
-  pagination: true,
-  navigation: false
-%}
+  <script>
+    (function() {
+      const initFade = () => {
+        const container = document.querySelector('#AnnFade-{{ section.id }}');
+        if (!container) return;
+        const items = container.querySelectorAll('.ann-item');
+        const limit = {{ section.settings.breakpoint }};
+        let index = 0;
+        let timer = null;
 
+        const run = () => {
+          if (window.innerWidth <= limit) {
+            items[index].classList.remove('is-active');
+            index = (index + 1) % items.length;
+            items[index].classList.add('is-active');
+          }
+        };
+
+        if (timer) clearInterval(timer);
+        timer = setInterval(run, {{ section.settings.autoplay_speed }});
+
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > limit) {
+            items.forEach(i => i.classList.remove('is-active'));
+          } else {
+            items[0].classList.add('is-active');
+          }
+        });
+      };
+
+      document.addEventListener('DOMContentLoaded', initFade);
+      if (window.Shopify && Shopify.designMode) {
+        document.addEventListener('shopify:section:load', initFade);
+      }
+    })();
+  </script>
 {% endif %}
 
 {% schema %}
 {
-  "name": "Announcement bar (Swiper)",
+  "name": "Announcement Bar (Fade)",
   "settings": [
     {
-      "type": "color",
-      "id": "background",
-      "label": "Background color",
-      "default": "#000000"
+      "type": "select",
+      "id": "header_background_color",
+      "label": "Select Background Color",
+      "options": [
+        { "value": "bg-primary", "label": "Background Primary" },
+        { "value": "bg-secondary", "label": "Background Secondary" },
+        { "value": "bg-accent-1", "label": "Accent Background 1" },
+        { "value": "bg-accent-2", "label": "Accent Background 2" },
+        { "value": "bg-accent-3", "label": "Accent Background 3" },
+        { "value": "bg-accent-4", "label": "Accent Background 4" },
+        { "value": "bg-accent-5", "label": "Accent Background 5" }
+      ],
+      "default": "bg-primary"
     },
     {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#ffffff"
+      "type": "select",
+      "id": "header_text_color",
+      "label": "Select Text Color",
+      "options": [
+        { "value": "text-heading", "label": "Heading Color" },
+        { "value": "text-body", "label": "Body Text Color" },
+        { "value": "text-link", "label": "Link Color" },
+        { "value": "text-link-hover", "label": "Link Hover Color" },
+        { "value": "text-accent-1", "label": "Accent Color 1" },
+        { "value": "text-accent-2", "label": "Accent Color 2" },
+        { "value": "text-accent-3", "label": "Accent Color 3" },
+        { "value": "text-accent-4", "label": "Accent Color 4" },
+        { "value": "text-accent-5", "label": "Accent Color 5" }
+      ],
+      "default": "text-body"
     },
     {
-      "type": "checkbox",
-      "id": "autoplay",
-      "label": "Enable autoplay",
-      "default": true
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "breakpoint",
+      "label": "Start fade effect at:",
+      "default": "768",
+      "options": [
+        { "value": "768", "label": "Mobile (below 768px)" },
+        { "value": "1024", "label": "Tablet (below 1024px)" },
+        { "value": "1280", "label": "Laptop (below 1280px)" },
+        { "value": "1440", "label": "Desktop (below 1440px)" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Text size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     },
     {
       "type": "range",
@@ -103,12 +233,6 @@ Announcement Bar – Swiper Slider
       "max": 8000,
       "step": 500,
       "default": 3000
-    },
-    {
-      "type": "checkbox",
-      "id": "show_dots",
-      "label": "Show pagination dots",
-      "default": false
     }
   ],
   "blocks": [
@@ -116,6 +240,148 @@ Announcement Bar – Swiper Slider
       "type": "announcement",
       "name": "Announcement",
       "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "none" },
+            { "group": "Interface", "value": "check", "label": "Check" },
+            { "group": "Interface", "value": "x", "label": "Close (X)" },
+            { "group": "Interface", "value": "plus", "label": "Plus" },
+            { "group": "Interface", "value": "minus", "label": "Minus" },
+            { "group": "Interface", "value": "search", "label": "Search" },
+            { "group": "Interface", "value": "menu", "label": "Menu" },
+            { "group": "Interface", "value": "settings", "label": "Settings" },
+            { "group": "Interface", "value": "trash", "label": "Trash" },
+            { "group": "Interface", "value": "edit", "label": "Edit" },
+            { "group": "Interface", "value": "edit2", "label": "Edit 2" },
+            { "group": "Interface", "value": "save", "label": "Save" },
+            { "group": "Interface", "value": "refresh-cw", "label": "Refresh" },
+            { "group": "Interface", "value": "spinner", "label": "Spinner" },
+            { "group": "Navigation", "value": "arrow-left", "label": "Arrow Left" },
+            { "group": "Navigation", "value": "arrow-right", "label": "Arrow Right" },
+            { "group": "Navigation", "value": "arrow-down", "label": "Arrow Down" },
+            { "group": "Navigation", "value": "chevron-left", "label": "Chevron Left" },
+            { "group": "Navigation", "value": "chevron-right", "label": "Chevron Right" },
+            { "group": "Navigation", "value": "chevron-up", "label": "Chevron Up" },
+            { "group": "Navigation", "value": "chevron-down", "label": "Chevron Down" },
+            { "group": "Commerce", "value": "cart", "label": "Cart" },
+            { "group": "Commerce", "value": "shopping-bag", "label": "Shopping Bag" },
+            { "group": "Commerce", "value": "package", "label": "Package" },
+            { "group": "Commerce", "value": "truck", "label": "Truck" },
+            { "group": "Commerce", "value": "tag", "label": "Tag" },
+            { "group": "Commerce", "value": "dollar-sign", "label": "Dollar Sign" },
+            { "group": "Commerce", "value": "gift", "label": "Gift" },
+            { "group": "Commerce", "value": "new-bag", "label": "New Bag" },
+            { "group": "Social", "value": "facebook", "label": "Facebook" },
+            { "group": "Social", "value": "facebook-new", "label": "Facebook (New)" },
+            { "group": "Social", "value": "instagram", "label": "Instagram" },
+            { "group": "Social", "value": "tiktok", "label": "TikTok" },
+            { "group": "Social", "value": "x-twitter", "label": "X (Twitter)" },
+            { "group": "Social", "value": "x-twitter-new", "label": "X (Twitter New)" },
+            { "group": "Social", "value": "youtube", "label": "YouTube" },
+            { "group": "Social", "value": "vimeo", "label": "Vimeo" },
+            { "group": "Social", "value": "pinterest", "label": "Pinterest" },
+            { "group": "Social", "value": "pinterest-new", "label": "Pinterest (New)" },
+            { "group": "Social", "value": "linkedin", "label": "LinkedIn" },
+            { "group": "Social", "value": "linkedin-new", "label": "LinkedIn (New)" },
+            { "group": "Social", "value": "twitch", "label": "Twitch" },
+            { "group": "Social", "value": "discord", "label": "Discord" },
+            { "group": "Social", "value": "snapchat", "label": "Snapchat" },
+            { "group": "Social", "value": "tumblr", "label": "Tumblr" },
+            { "group": "Social", "value": "trustpilot", "label": "Trustpilot" },
+            { "group": "Users", "value": "account", "label": "Account" },
+            { "group": "Users", "value": "user", "label": "User" },
+            { "group": "Users", "value": "users", "label": "Users" },
+            { "group": "Users", "value": "user-plus", "label": "User Plus" },
+            { "group": "Users", "value": "user-check", "label": "User Check" },
+            { "group": "Users", "value": "new-user", "label": "New User" },
+            { "group": "Ratings", "value": "star", "label": "Star" },
+            { "group": "Ratings", "value": "star-half", "label": "Star Half" },
+            { "group": "Ratings", "value": "heart", "label": "Heart" },
+            { "group": "Ratings", "value": "heart-fill", "label": "Heart Fill" },
+            { "group": "Ratings", "value": "wishlist", "label": "Wishlist" },
+            { "group": "Ratings", "value": "wishlist-plus", "label": "Wishlist Plus" },
+            { "group": "Ratings", "value": "thumbs-up", "label": "Thumbs Up" },
+            { "group": "Ratings", "value": "thumbs-down", "label": "Thumbs Down" },
+            { "group": "Media", "value": "play", "label": "Play" },
+            { "group": "Media", "value": "pause", "label": "Pause" },
+            { "group": "Media", "value": "volume", "label": "Volume" },
+            { "group": "Media", "value": "volume-x", "label": "Mute" },
+            { "group": "Media", "value": "image", "label": "Image" },
+            { "group": "Media", "value": "camera", "label": "Camera" },
+            { "group": "Media", "value": "tv", "label": "TV" },
+            { "group": "Media", "value": "music", "label": "Music" },
+            { "group": "Media", "value": "headphones", "label": "Headphones" },
+            { "group": "Communication", "value": "chat", "label": "Chat" },
+            { "group": "Communication", "value": "mail", "label": "Mail" },
+            { "group": "Communication", "value": "bell", "label": "Bell" },
+            { "group": "Communication", "value": "at-sign", "label": "At Sign" },
+            { "group": "Misc", "value": "help", "label": "Help" },
+            { "group": "Misc", "value": "help-circle", "label": "Help Circle" },
+            { "group": "Misc", "value": "info", "label": "Info" },
+            { "group": "Misc", "value": "alert-circle", "label": "Alert Circle" },
+            { "group": "Misc", "value": "alert-triangle", "label": "Alert Triangle" },
+            { "group": "Misc", "value": "globe", "label": "Globe" },
+            { "group": "Misc", "value": "map-pin", "label": "Map Pin" },
+            { "group": "Misc", "value": "map", "label": "Map" },
+            { "group": "Misc", "value": "location", "label": "Location" },
+            { "group": "Misc", "value": "calendar", "label": "Calendar" },
+            { "group": "Misc", "value": "clock", "label": "Clock" },
+            { "group": "Misc", "value": "cookie", "label": "Cookie" },
+            { "group": "Misc", "value": "cookie-new", "label": "Cookie (New)" },
+            { "group": "Misc", "value": "anchor", "label": "Anchor" },
+            { "group": "Misc", "value": "archive", "label": "Archive" },
+            { "group": "Misc", "value": "award", "label": "Award" },
+            { "group": "Misc", "value": "book", "label": "Book" },
+            { "group": "Misc", "value": "book-open", "label": "Book Open" },
+            { "group": "Misc", "value": "bookmark", "label": "Bookmark" },
+            { "group": "Misc", "value": "box", "label": "Box" },
+            { "group": "Misc", "value": "briefcase", "label": "Briefcase" },
+            { "group": "Misc", "value": "clipboard", "label": "Clipboard" },
+            { "group": "Misc", "value": "cloud", "label": "Cloud" },
+            { "group": "Misc", "value": "coffee", "label": "Coffee" },
+            { "group": "Misc", "value": "code", "label": "Code" },
+            { "group": "Misc", "value": "cpu", "label": "CPU" },
+            { "group": "Misc", "value": "droplet", "label": "Droplet" },
+            { "group": "Misc", "value": "eye", "label": "Eye" },
+            { "group": "Misc", "value": "flag", "label": "Flag" },
+            { "group": "Misc", "value": "folder", "label": "Folder" },
+            { "group": "Misc", "value": "hash", "label": "Hash" },
+            { "group": "Misc", "value": "home", "label": "Home" },
+            { "group": "Misc", "value": "inbox", "label": "Inbox" },
+            { "group": "Misc", "value": "key", "label": "Key" },
+            { "group": "Misc", "value": "life-buoy", "label": "Life Buoy" },
+            { "group": "Misc", "value": "link", "label": "Link" },
+            { "group": "Misc", "value": "lock", "label": "Lock" },
+            { "group": "Misc", "value": "unlock", "label": "Unlock" },
+            { "group": "Misc", "value": "monitor", "label": "Monitor" },
+            { "group": "Misc", "value": "mouse-pointer", "label": "Mouse Pointer" },
+            { "group": "Misc", "value": "paperclip", "label": "Paperclip" },
+            { "group": "Misc", "value": "shield", "label": "Shield" },
+            { "group": "Misc", "value": "slash", "label": "Slash" },
+            { "group": "Misc", "value": "sliders", "label": "Sliders" },
+            { "group": "Misc", "value": "smile", "label": "Smile" },
+            { "group": "Misc", "value": "meh", "label": "Meh" },
+            { "group": "Misc", "value": "speaker", "label": "Speaker" },
+            { "group": "Misc", "value": "sun", "label": "Sun" },
+            { "group": "Misc", "value": "sunrise", "label": "Sunrise" },
+            { "group": "Misc", "value": "sunset", "label": "Sunset" },
+            { "group": "Misc", "value": "table", "label": "Table" },
+            { "group": "Misc", "value": "thermometer", "label": "Thermometer" },
+            { "group": "Misc", "value": "trending-up", "label": "Trending Up" },
+            { "group": "Misc", "value": "tool", "label": "Tool" },
+            { "group": "Misc", "value": "umbrella", "label": "Umbrella" },
+            { "group": "Misc", "value": "zap", "label": "Zap" },
+            { "group": "Misc", "value": "grid", "label": "Grid" },
+            { "group": "Misc", "value": "list", "label": "List" },
+            { "group": "Misc", "value": "filter", "label": "Filter" },
+            { "group": "Misc", "value": "comparison", "label": "Comparison" },
+            { "group": "Misc", "value": "check-square", "label": "Check Square" },
+            { "group": "Misc", "value": "activity", "label": "Activity" }
+          ]
+        },
         {
           "type": "text",
           "id": "text",
@@ -133,8 +399,9 @@ Announcement Bar – Swiper Slider
   "max_blocks": 6,
   "presets": [
     {
-      "name": "Announcement bar slider",
+      "name": "Announcement bar fade",
       "blocks": [
+        { "type": "announcement" },
         { "type": "announcement" },
         { "type": "announcement" }
       ]
