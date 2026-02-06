@@ -53,9 +53,9 @@
       "settings": {
         "background": "#f0f3f2",
         "text_color": "#000000",
-        "autoplay": true,
+        "autoplay": false,
         "autoplay_speed": 4500,
-        "show_dots": true
+        "show_dots": false
       }
     },
     "header-default": {
