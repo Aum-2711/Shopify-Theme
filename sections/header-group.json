@@ -17,6 +17,7 @@
         "announcement_QDBTWY": {
           "type": "announcement",
           "settings": {
+            "icon": "none",
             "text": "Free shipping on all orders",
             "link": ""
           }
@@ -24,6 +25,7 @@
         "announcement_HGJL4T": {
           "type": "announcement",
           "settings": {
+            "icon": "none",
             "text": "Free shipping on all orders",
             "link": ""
           }
@@ -31,6 +33,7 @@
         "announcement_cxBwDy": {
           "type": "announcement",
           "settings": {
+            "icon": "none",
             "text": "Free shipping on all orders",
             "link": ""
           }
@@ -43,6 +46,11 @@
       ],
       "name": "Announcement bar slider",
       "settings": {
+        "header_background_color": "bg-secondary",
+        "header_text_color": "text-body",
+        "alignment": "center",
+        "breakpoint": "768",
+        "text_size": 14,
         "autoplay_speed": 3000
       }
     },
@@ -51,6 +59,7 @@
       "settings": {
         "header_text_color": "text-body",
         "header_background_color": "bg-primary",
+        "header_border_color": "bb-accent-1",
         "nav_menu": "main-menu",
         "nav_text_color": "text-body",
         "nav_background_color": "bg-primary"
