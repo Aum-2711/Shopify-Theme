@@ -54,7 +54,7 @@
         "background": "#f0f3f2",
         "text_color": "#000000",
         "autoplay": true,
-        "autoplay_speed": 3000,
+        "autoplay_speed": 4500,
         "show_dots": false
       }
     },
